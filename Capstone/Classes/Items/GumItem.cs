@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Capstone.Classes.Items
 {
-    public class ChipItem : VendingMachineItem
+    public class GumItem : VendingMachineItem
     {
-        public ChipItem(string nameOfItem, decimal priceOfItem, string slotID) : base(nameOfItem, priceOfItem, slotID)
+        public GumItem(string nameOfItem, decimal priceOfItem, string slotID) : base(nameOfItem, priceOfItem, slotID)
         {
             this.NameOfItem = nameOfItem;
             this.PriceOfItem = priceOfItem;
@@ -17,7 +17,7 @@ namespace Capstone.Classes.Items
 
         public override string ItemYumYum()
         {
-            return "Crunch Crunch, Yum!";
+            return "Chew Chew, Yum!";
         }
     }
 }

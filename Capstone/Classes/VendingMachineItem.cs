@@ -8,11 +8,11 @@ namespace Capstone
 {
     public abstract class VendingMachineItem
     {
-        public string NameOfItem { get; }
+        public string NameOfItem { get;  set; }
 
-        public decimal PriceOfItem { get; }
+        public decimal PriceOfItem { get;  set; }
 
-        public string SlotID { get; set; }
+        public string SlotID { get;  set; }
 
         public abstract string ItemYumYum();
 

@@ -18,14 +18,26 @@ namespace Capstone.Classes
                     Console.WriteLine("(1) Display Items");
                     int displayItems = int.Parse(Console.ReadLine());
 
-                    VendingMachine machine = new VendingMachine();
+                    VendingMachineLogic machine = new VendingMachineLogic();
+
                     foreach (var kvp in machine.Inventory)
                     {
-                        Console.WriteLine($"{kvp.Key} | {kvp.Value}");
+                        Console.WriteLine($"{kvp.Key}| {kvp.Value[0].NameOfItem} {kvp.Value[2].PriceOfItem}");
                     }
-
+                    Console.WriteLine();
                     Console.WriteLine("(2) Purchase");
                     int purchaseItems = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("(1) Feed Money");
+                    int feedMoney = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("(2) Select Product");
+                    int selectProduct = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("(3) Finish Transaction");
+                    int finishTransaction = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine($"Current Money Provided: ***");
                     break;
 
                 }

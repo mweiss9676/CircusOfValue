@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Capstone.Classes.VendingMachineCMDLI</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,29 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Change.cs" />
-    <Compile Include="Classes\Items\ChicletsItem.cs" />
+    <Compile Include="Classes\Items\GumItem.cs" />
     <Compile Include="Classes\Items\ChipItem.cs" />
-    <Compile Include="Classes\Items\CloudPopcornItem.cs" />
-    <Compile Include="Classes\Items\ColaItem.cs" />
-    <Compile Include="Classes\Items\CowtalesItem.cs" />
-    <Compile Include="Classes\Items\CrunchieItem.cs" />
-    <Compile Include="Classes\Items\CrunchyItem.cs" />
-    <Compile Include="Classes\Items\DrSaltItem.cs" />
-    <Compile Include="Classes\Items\GrainWavesItem.cs" />
-    <Compile Include="Classes\Items\HeavyItem.cs" />
-    <Compile Include="Classes\Items\LittleLeagueChewItem.cs" />
-    <Compile Include="Classes\Items\MoonpieItem.cs" />
-    <Compile Include="Classes\Items\MountainMelterItem.cs" />
-    <Compile Include="Classes\Items\StackersItem.cs" />
-    <Compile Include="Classes\Items\TriplemintItem.cs" />
-    <Compile Include="Classes\Items\UChewsItem.cs" />
-    <Compile Include="Classes\Items\WonkaBarItem.cs" />
+    <Compile Include="Classes\Items\CandyItem.cs" />
+    <Compile Include="Classes\Items\DrinkItem.cs" />
     <Compile Include="Classes\VendingMachineCMDLI.cs" />
     <Compile Include="Classes\VendingMachineFileReader.cs" />
     <Compile Include="Classes\VendingMachineItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\VendingMachine.cs" />
+    <Compile Include="Classes\VendingMachineLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
