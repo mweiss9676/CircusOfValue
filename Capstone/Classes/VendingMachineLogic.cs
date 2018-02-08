@@ -13,14 +13,21 @@ namespace Capstone
 
         public decimal Balance { get; private set; }
 
+        private List<VendingMachineItem> ShoppingCart = new List<VendingMachineItem>();
+
         public string[] Slots { get; }
 
-        public decimal CurrentMoneyProvided { get; private set; }
+        public decimal CurrentMoneyProvided { get; set; }
 
         public VendingMachineLogic()
         {
             VendingMachineFileReader filereader = new VendingMachineFileReader();
             Inventory = filereader.GetInventory();
+        }
+
+        public void AddItemToCart(VendingMachineItem item)
+        {
+            ShoppingCart.Add(item);
         }
 
         public void CurrentMoney(decimal feedMoney)
