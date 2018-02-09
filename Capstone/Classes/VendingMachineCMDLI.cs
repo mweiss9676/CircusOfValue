@@ -33,17 +33,25 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Display Items");
             Console.WriteLine();
             Console.WriteLine("(2) Purchase Items");
-            int mainMenuResult = int.Parse(Console.ReadLine());
+            string mainMenuStringResult = Console.ReadLine();
+            int mainMenuIntResult;
+            int.TryParse(mainMenuStringResult, out mainMenuIntResult);
 
-            if(mainMenuResult == 1)
+            if(mainMenuIntResult == 1)
             {
                 Console.Clear();
                 PrintDisplayItems();
             }
-            else if(mainMenuResult == 2)
+            else if(mainMenuIntResult == 2)
             {
                 Console.Clear();
                 PrintPurchaseMenu();
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"{mainMenuStringResult} is not a valid option, please select from the available choices.");
+                Console.WriteLine();
             }
         }
 
@@ -53,6 +61,7 @@ namespace Capstone.Classes
             {
                 Console.WriteLine($"{kvp.Key} | {kvp.Value[0].NameOfItem} | {kvp.Value[2].PriceOfItem}");
             }
+            Console.WriteLine();
         }
 
         private static void PrintPurchaseMenu()
@@ -82,6 +91,7 @@ namespace Capstone.Classes
             }
             else if (subMenuResult == 3)
             {
+                Console.Clear();
                 PrintFinishTransactionMenu();
             }
 
@@ -89,22 +99,116 @@ namespace Capstone.Classes
 
         private static void PrintFinishTransactionMenu()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Your Total Cart is: {machine.TotalCart}");
+            Console.WriteLine();
+            Console.WriteLine($"Your Current Money Inserted is: {machine.CurrentMoneyProvided}");
+            Console.WriteLine();
+            Console.WriteLine("Are You Ready To Complete The Transaction? (Y)es To Process the Transaction / (N)o To Be Returned To The Product Selection Screen:");
+            string completeTransaction = Console.ReadLine();
+            
+            if (completeTransaction.ToUpper() == "Y" || completeTransaction.ToUpper() == "YES")
+            {
+                if (machine.CurrentMoneyProvided - machine.TotalCart >= 0)
+                {
+                    Console.Clear();
+                    PrintCompleteTransaction();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Insufficient Funds, Please Insert More Money");
+                    Console.WriteLine();
+                    PrintPurchaseMenu();
+                }
+            }
+            else if (completeTransaction.ToUpper() == "N" || completeTransaction.ToUpper() == "NO")
+            {
+                Console.Clear();
+                PrintPurchaseMenu();
+            }
+        }
+
+        private static void PrintCompleteTransaction()
+        {
+
+
+            Change change = machine.GetChange();
+            Console.WriteLine($"Total Change: ${change.TotalChange}");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine($"Quarter(s): {change.Quarters}");
+            Console.WriteLine($"Dime(s): {change.Dimes}");
+            Console.WriteLine($"Nickel(s): {change.Nickels}");
+            while (machine.ShoppingCart.Count > 0)
+            {
+                machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
+            }
+            machine.CalculateTotalShoppingCart(machine.ShoppingCart);
+            machine.ResetCurrentMoneyProvided();
+            Console.WriteLine();
+            PrintDisplayMenu();
         }
 
         private static void DisplayProductSelection()
         {
-
-            foreach (var kvp in machine.Inventory)
+            while (true)
             {
-                Console.WriteLine($"{kvp.Key} | {kvp.Value[0].NameOfItem} | {kvp.Value[2].PriceOfItem}");
-            }
-            Console.WriteLine("Please Enter Your Selection (A1):");
-            string ItemSelection = Console.ReadLine();
 
-            if (machine.Inventory.Keys.Contains(ItemSelection))
-            {
-                machine.AddItemToCart(machine.Inventory[ItemSelection][0]);
+                foreach (var kvp in machine.Inventory)
+                {
+                    if (machine.GetCurrentInventory(kvp.Value) > 0)
+                    {
+                        Console.WriteLine($"{kvp.Key.PadRight(2)} | {kvp.Value[0].NameOfItem.PadRight(20)} | ${kvp.Value[0].PriceOfItem}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("SOLD OUT".PadLeft(13));
+                    }
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("(D)one");
+                Console.WriteLine();
+                Console.WriteLine("Please Enter Your Selection (A1):");
+                Console.WriteLine();
+                if (machine.ShoppingCart.Count > 0)
+                {
+                    Console.Write($"Your current cart: {machine.ShoppingCart[0].NameOfItem.PadRight(20)} | ${machine.ShoppingCart[0].PriceOfItem}");
+                    Console.WriteLine();
+                    for (int i = 1; i < machine.ShoppingCart.Count; i++)
+                    {
+                        Console.WriteLine($"                   {machine.ShoppingCart[i].NameOfItem.PadRight(20)} | ${machine.ShoppingCart[i].PriceOfItem}");
+                    }
+
+                    Console.WriteLine("---------------------------------------------");
+                    machine.CalculateTotalShoppingCart(machine.ShoppingCart);
+                    Console.WriteLine($"Total:".PadRight(40) + "| " + "$" + $"{machine.TotalCart}");
+                    Console.WriteLine();
+                    Console.WriteLine($"Current Money Provided:".PadRight(40) + "| " + "$" + $"{machine.CurrentMoneyProvided:0.00}");
+                    Console.WriteLine();
+
+                }
+                string ItemSelection = Console.ReadLine().ToUpper();                
+
+                if (machine.Inventory.Keys.Contains(ItemSelection))
+                {
+                    Console.Clear();
+                    machine.AddItemToCart(machine.Inventory[ItemSelection][0]);
+                    machine.RemoveInventory(machine.Inventory[ItemSelection][0]);
+                }
+                else if (ItemSelection.ToUpper() == "D" || ItemSelection.ToUpper() == "Done")
+                {
+                    Console.Clear();
+                    PrintPurchaseMenu();
+                }
+                else
+                {
+
+                    Console.Clear();
+                    Console.WriteLine($"{ItemSelection} is not a valid choice. Please select one of the values below.");
+                    Console.WriteLine();
+                }
+
             }
             
         }
@@ -124,20 +228,15 @@ namespace Capstone.Classes
                 Console.WriteLine($"Money Inserted: {machine.CurrentMoneyProvided}");
                 string answer = Console.ReadLine();
 
-                //
-                //
-                //This isn't working because answer is being parsed to a decimal no matter what
-                //If the user enters "D" the parse fails.
-                //
-                //
-                decimal moneyInserted = decimal.Parse(answer);
+                decimal moneyInserted;
+                decimal.TryParse(answer, out moneyInserted);
 
               
                 if (moneyInserted == 1 || moneyInserted == 2 || moneyInserted == 5 ||
                     moneyInserted == 10 || moneyInserted == 20)
                 {
                     Console.Clear();
-                    machine.CurrentMoneyProvided += moneyInserted;
+                    machine.AddMoney(moneyInserted);
                 }
                 else if (answer.ToUpper() == "D" || answer.ToUpper() == "Done" || answer.ToLower() == "D" || answer.ToLower() == "Done")
                 {
@@ -149,7 +248,8 @@ namespace Capstone.Classes
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine($"{moneyInserted} is not a valid denomination. Please select one of the values above.");
+                    Console.WriteLine($"{moneyInserted} is not a valid denomination. Please select one of the values below.");
+                    Console.WriteLine();
                 }
             }
         }

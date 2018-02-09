@@ -8,16 +8,37 @@ namespace Capstone.Classes
 {
     public class Change
     {
-        public int Nickels { get; }
+        public int Nickels { get; private set; }
 
-        public int Dimes { get; }
+        public int Dimes { get; private set; }
 
-        public int Quarters { get; }
+        public int Quarters { get; private set; }
 
-        public decimal Total { get; }
-        
-        public Change(decimal total)
+        public decimal TotalChange { get; private set; }
+
+        public void CalculateChange(decimal currentMoneyProvided, decimal totalCart)
         {
+            decimal change = 0.0M;
+
+            change = currentMoneyProvided - totalCart;
+
+            TotalChange = change;
+
+            while (change - .25M >= 0.0M)
+            {
+                change -= .25M;
+                Quarters++;
+            }
+            while (change - .10M >= 0.0M)
+            {
+                change -= .10M;
+                Dimes++;
+            }
+            while (change - .05M >= 0.0M)
+            {
+                change -= .05M;
+                Nickels++;
+            }
 
         }
 
