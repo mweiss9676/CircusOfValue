@@ -66,7 +66,7 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine($"Current Money Provided: {machine.CurrentMoneyProvided} ");
+            Console.WriteLine($"Current Money Provided: ${machine.CurrentMoneyProvided} ");
 
             int subMenuResult = int.Parse(Console.ReadLine());
 
@@ -121,7 +121,7 @@ namespace Capstone.Classes
                 Console.WriteLine("$20");
                 Console.WriteLine("(D)one inserting money.");
                 Console.WriteLine();
-                Console.WriteLine($"Money Inserted: ${machine.CurrentMoneyProvided}");
+                Console.WriteLine($"Money Inserted: {machine.CurrentMoneyProvided}");
                 string answer = Console.ReadLine();
 
                 //
@@ -132,17 +132,20 @@ namespace Capstone.Classes
                 //
                 decimal moneyInserted = decimal.Parse(answer);
 
+              
                 if (moneyInserted == 1 || moneyInserted == 2 || moneyInserted == 5 ||
                     moneyInserted == 10 || moneyInserted == 20)
                 {
                     Console.Clear();
                     machine.CurrentMoneyProvided += moneyInserted;
                 }
-                else if (answer.ToUpper() == "D" || answer.ToUpper() == "Done")
+                else if (answer.ToUpper() == "D" || answer.ToUpper() == "Done" || answer.ToLower() == "D" || answer.ToLower() == "Done")
                 {
                     Console.Clear();
                     PrintPurchaseMenu();
                 }
+
+
                 else
                 {
                     Console.Clear();
