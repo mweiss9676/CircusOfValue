@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Capstone;
 
@@ -76,8 +77,9 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"Current Money Provided: ${machine.CurrentMoneyProvided} ");
-
-            int subMenuResult = int.Parse(Console.ReadLine());
+            string doneOption = Console.ReadLine();
+            int subMenuResult;
+            int.TryParse(doneOption, out subMenuResult);
 
             if (subMenuResult == 1)
             {
@@ -94,7 +96,13 @@ namespace Capstone.Classes
                 Console.Clear();
                 PrintFinishTransactionMenu();
             }
-
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"You Entered {doneOption}. This Is Not A Valid Option.");
+                Console.WriteLine();
+                PrintPurchaseMenu();
+            }
         }
 
         private static void PrintFinishTransactionMenu()
@@ -131,7 +139,6 @@ namespace Capstone.Classes
         private static void PrintCompleteTransaction()
         {
 
-
             Change change = machine.GetChange();
             Console.WriteLine($"Total Change: ${change.TotalChange}");
             Console.WriteLine("---------------------------------------");
@@ -139,12 +146,27 @@ namespace Capstone.Classes
             Console.WriteLine($"Quarter(s): {change.Quarters}");
             Console.WriteLine($"Dime(s): {change.Dimes}");
             Console.WriteLine($"Nickel(s): {change.Nickels}");
+
+            
+
+            Console.WriteLine();
+            foreach (var item in machine.ShoppingCart)
+            {
+                Console.WriteLine($"You are eating {item.NameOfItem} {item.ItemYumYum()}");
+            }
+
             while (machine.ShoppingCart.Count > 0)
             {
+                machine.PrintLog(machine.ShoppingCart[0].NameOfItem + " " + machine.ShoppingCart[0].SlotID + " $" 
+                    + machine.CurrentMoneyProvided + "     $" + (machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem).ToString());
+
                 machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
             }
+            
+
             machine.CalculateTotalShoppingCart(machine.ShoppingCart);
             machine.ResetCurrentMoneyProvided();
+            machine.PrintLog("GIVE CHANGE: $" + change.TotalChange.ToString() + "     $" + machine.CurrentMoneyProvided.ToString());
             Console.WriteLine();
             PrintDisplayMenu();
         }
@@ -167,10 +189,12 @@ namespace Capstone.Classes
                 }
 
                 Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("(D)one");
                 Console.WriteLine();
                 Console.WriteLine("Please Enter Your Selection (A1):");
                 Console.WriteLine();
+
                 if (machine.ShoppingCart.Count > 0)
                 {
                     Console.Write($"Your current cart: {machine.ShoppingCart[0].NameOfItem.PadRight(20)} | ${machine.ShoppingCart[0].PriceOfItem}");
@@ -179,7 +203,9 @@ namespace Capstone.Classes
                     {
                         Console.WriteLine($"                   {machine.ShoppingCart[i].NameOfItem.PadRight(20)} | ${machine.ShoppingCart[i].PriceOfItem}");
                     }
-
+                    Console.WriteLine();
+                    Console.WriteLine($"Remove selection? (ex. Remove Potato Crisps)");
+                    Console.WriteLine();
                     Console.WriteLine("---------------------------------------------");
                     machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                     Console.WriteLine($"Total:".PadRight(40) + "| " + "$" + $"{machine.TotalCart}");
@@ -188,18 +214,25 @@ namespace Capstone.Classes
                     Console.WriteLine();
 
                 }
-                string ItemSelection = Console.ReadLine().ToUpper();                
+                string ItemSelection = Console.ReadLine().ToUpper();
+                Regex reg = new Regex($"(?:REGEX)\\s((?:\\w+)\\s?(?:\\w+)?)");
 
-                if (machine.Inventory.Keys.Contains(ItemSelection))
+
+                if (machine.Inventory.Keys.Contains(ItemSelection) && machine.Inventory[ItemSelection].Count > 0)
                 {
                     Console.Clear();
                     machine.AddItemToCart(machine.Inventory[ItemSelection][0]);
                     machine.RemoveInventory(machine.Inventory[ItemSelection][0]);
                 }
-                else if (ItemSelection.ToUpper() == "D" || ItemSelection.ToUpper() == "Done")
+                else if (ItemSelection.ToUpper() == "D" || ItemSelection.ToUpper() == "DONE")
                 {
                     Console.Clear();
                     PrintPurchaseMenu();
+                }
+                else if(reg.IsMatch(ItemSelection))
+                {
+                    machine.RemoveItemsFromCart(machine.Inventory[ItemSelection][0]);
+                    machine.ReturnToInventory(machine.Inventory[ItemSelection][0]);
                 }
                 else
                 {
@@ -237,6 +270,7 @@ namespace Capstone.Classes
                 {
                     Console.Clear();
                     machine.AddMoney(moneyInserted);
+                    machine.PrintLog("FEED MONEY: $" + moneyInserted + "     $" + machine.CurrentMoneyProvided.ToString());
                 }
                 else if (answer.ToUpper() == "D" || answer.ToUpper() == "Done" || answer.ToLower() == "D" || answer.ToLower() == "Done")
                 {

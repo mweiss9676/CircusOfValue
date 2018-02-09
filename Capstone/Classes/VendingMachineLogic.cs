@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace Capstone
 
         public List<VendingMachineItem> ShoppingCart = new List<VendingMachineItem>();
 
-        public string[] Slots { get; }
+        //public string[] Slots { get; }
 
         public decimal CurrentMoneyProvided { get; private set; }
 
@@ -48,6 +49,10 @@ namespace Capstone
         {
             Inventory[item.SlotID].Remove(item);
             //Inventory.Remove(item.SlotID);
+        }
+        public void ReturnToInventory(VendingMachineItem item)
+        {
+            Inventory[item.SlotID].Add(item);
         }
 
         public void CalculateTotalShoppingCart(List<VendingMachineItem> cart)
@@ -84,5 +89,22 @@ namespace Capstone
             return changeBack;
         }
 
+        public void PrintLog(string transactionInformation)
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("transactionlog.txt", true))
+                {
+                    DateTime currentDateTime = DateTime.Now;
+                    sw.WriteLine(currentDateTime + " " + transactionInformation);
+
+
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
     }
 }
