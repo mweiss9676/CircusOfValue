@@ -14,7 +14,12 @@ namespace Capstone.Classes
         static VendingMachineLogic machine = new VendingMachineLogic();
 
         static void Main(string[] args)
-        {            
+        {
+            Console.Clear();
+            Console.SetWindowSize(Console.LargestWindowWidth, 41);
+            Console.SetBufferSize(Console.LargestWindowWidth, 80);
+            Console.SetWindowPosition(0, 0);
+
             while (true)
             {
                 try
