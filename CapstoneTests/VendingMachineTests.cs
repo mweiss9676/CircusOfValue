@@ -14,7 +14,10 @@ namespace CapstoneTests
         
         VendingMachineLogic test = new VendingMachineLogic();
         VendingMachineItem chips = new ChipItem("chips", 2.40M, "A1");
-        
+        VendingMachineItem drink = new DrinkItem("drink", 1.40M, "D2");
+        VendingMachineItem gum = new ChipItem("gum", 3.80M, "C3");
+        VendingMachineItem heavy = new ChipItem("Heavy", 5.80M, "C2");
+
 
         [TestMethod]
         public void AmountOfMoneyAdded_MatchesCurrentMoneyProvided()
@@ -29,18 +32,54 @@ namespace CapstoneTests
         public void AddItemsToCart_UpdateTotal()
         {
             test.AddItemToCart(chips);
+            test.AddItemToCart(gum);
+            test.AddItemToCart(drink);
             test.CalculateTotalShoppingCart(test.ShoppingCart);
 
-            Assert.AreEqual(2.40M, test.TotalCart);
+            Assert.AreEqual(7.60M, test.TotalCart);
         }
+
         [TestMethod]
-        public void RemoveItemFromCart()
+        public void RemoveItemsFromCart()
         {
             test.AddItemToCart(chips);
+            test.AddItemToCart(drink);
+            test.AddItemToCart(gum);
+            test.CalculateTotalShoppingCart(test.ShoppingCart);
+
+            Assert.AreEqual(7.60M, test.TotalCart);
+
             test.RemoveItemsFromCart(chips);
             test.CalculateTotalShoppingCart(test.ShoppingCart);
 
-            Assert.AreEqual(0, test.TotalCart);
+            Assert.AreEqual(5.20M, test.TotalCart);
+
+        }
+
+        [TestMethod]
+        public void CheckRemovedFromInventory()
+        {
+            //int countBefore = test.Inventory.Count;
+            decimal countBefore = 0;
+
+            foreach (var kvp in test.Inventory)
+            {
+                countBefore += kvp.Value.Count;
+            }
+
+            Assert.AreEqual(80, countBefore);
+
+            test.RemoveItemFromInventory(heavy);
+
+            decimal countAfter = 0;
+
+            foreach (var kvp in test.Inventory)
+            {
+                countAfter += kvp.Value.Count;
+            }
+
+           
+            Assert.AreEqual(79, countAfter);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Capstone.Classes
 
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.Clear();
             Console.SetWindowSize(Console.LargestWindowWidth, 41);
             Console.SetBufferSize(Console.LargestWindowWidth, 80);
@@ -63,7 +65,7 @@ namespace Capstone.Classes
                 Console.Clear();
                 Console.WriteLine("ADMIN ONLY: ENTER PASSWORD:");
                 string password = Console.ReadLine();
-                if (password == "No Josh's Allowed")
+                if (password == "No Joshes Allowed")
                 {
                     Console.Clear();
                     Console.WriteLine("Printing Sales Report");
@@ -263,7 +265,7 @@ namespace Capstone.Classes
 
                 foreach (var kvp in machine.Inventory)
                 {
-                    if (machine.GetCurrentInventory(kvp.Value) > 0)
+                    if (machine.GetEachItemsCurrentInventory(kvp.Value) > 0)
                     {
                         Console.WriteLine($"{kvp.Key.PadRight(2)} | {kvp.Value[0].NameOfItem.PadRight(20)} | ${kvp.Value[0].PriceOfItem}");
                     }
@@ -301,43 +303,38 @@ namespace Capstone.Classes
                 }
                 string ItemSelection = Console.ReadLine().ToUpper();
                 Regex reg = new Regex($"^(?:REMOVE)\\s((?:\\w+)\\s?(?:\\w+)?)");
-
+                Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
 
                 if (machine.Inventory.Keys.Contains(ItemSelection) && machine.Inventory[ItemSelection].Count > 0)
                 {
                     Console.Clear();
                     machine.AddItemToCart(machine.Inventory[ItemSelection][0]);
-                    machine.RemoveInventory(machine.Inventory[ItemSelection][0]);
+                    machine.RemoveItemFromInventory(machine.Inventory[ItemSelection][0]);
                 }
                 else if (ItemSelection.ToUpper() == "D" || ItemSelection.ToUpper() == "DONE")
                 {
                     Console.Clear();
                     PrintPurchaseMenu();
                 }
-                else if(reg.IsMatch(ItemSelection))
+                else if(reg.IsMatch(ItemSelection) && machine.ShoppingCart.Count > 0 
+                    && machine.ShoppingCart.Any(x => x.NameOfItem.ToUpper() == match.Groups[1].ToString())) //checks to make sure mispellings aren't searched for
                 {
-                    Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
-                    //var myKey = machine.Inventory.Values.FirstOrDefault(x => x.Value == match.Groups[1].Value).Key;
-                    //var emailAdd =
-                    //            (from p in machine.Inventory
-                    //             where p.Value.Contains(match.Groups[1].Value)
-                    //             select p.Key)
-                    //            .FirstOrDefault();
+                    //Gets the key from the slotID property of the shopping cart so that it can be passed to the methods below.
+                    var key = (from k in machine.ShoppingCart
+                               where string.Compare(k.NameOfItem, match.Groups[1].ToString(), true) == 0
+                               select k.SlotID).FirstOrDefault();
 
                     Console.Clear();
-                    machine.RemoveItemsFromCart(machine.Inventory[match.Groups[1].Value][0]);
-                    machine.ReturnToInventory(machine.Inventory[ItemSelection][0]);
+                    machine.ReturnToInventory(machine.ShoppingCart[0]);
+                    machine.RemoveItemsFromCart(machine.Inventory[key][0]);
                 }
                 else
                 {
-
                     Console.Clear();
                     Console.WriteLine($"{ItemSelection} is not a valid choice. Please select one of the values below.");
                     Console.WriteLine();
                 }
-
-            }
-            
+            }            
         }
 
         private static void FeedMoneyMenu()
@@ -353,6 +350,11 @@ namespace Capstone.Classes
                 Console.WriteLine("(D)one inserting money.");
                 Console.WriteLine();
                 Console.WriteLine($"Money Inserted: ${machine.CurrentMoneyProvided}");
+                Console.WriteLine();
+                if (machine.ShoppingCart.Count > 0)
+                {
+                    Console.WriteLine($"Current Total: ${machine.TotalCart}");
+                }
                 string answer = Console.ReadLine();
 
                 decimal moneyInserted;

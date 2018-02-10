@@ -20,7 +20,7 @@ namespace Capstone
             }
         }
 
-        private List<string> NamesOfItems = new List<string>();
+        public List<string> NamesOfItems = new List<string>();
 
         public decimal TotalCart { get; private set; }
 
@@ -32,7 +32,7 @@ namespace Capstone
 
         public decimal CurrentMoneyProvided { get; private set; }
 
-        public int GetCurrentInventory(List<VendingMachineItem> eachItemsList)
+        public int GetEachItemsCurrentInventory(List<VendingMachineItem> eachItemsList)
         {
             int result = 0;
 
@@ -56,10 +56,11 @@ namespace Capstone
             CurrentMoneyProvided = 0;
         }
 
-        public void RemoveInventory(VendingMachineItem item)
+        public void RemoveItemFromInventory(VendingMachineItem item)
         {
             Inventory[item.SlotID].Remove(item);
         }
+
         public void ReturnToInventory(VendingMachineItem item)
         {
             Inventory[item.SlotID].Add(item);
@@ -82,9 +83,17 @@ namespace Capstone
             ShoppingCart.Add(item);
         }
 
-        public void RemoveItemsFromCart(VendingMachineItem item)
+        public int RemoveItemsFromCart(VendingMachineItem item)
         {
-            ShoppingCart.Remove(item);
+            foreach (var i in ShoppingCart)
+            {
+                if (i.NameOfItem == item.NameOfItem)
+                {
+                    ShoppingCart.Remove(i);
+                    return 1;
+                }
+            }
+            return -1;
         }
 
         public Change GetChange()
