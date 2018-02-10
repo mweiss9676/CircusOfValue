@@ -14,15 +14,21 @@ namespace Capstone
         {
             VendingMachineFileReader filereader = new VendingMachineFileReader();
             Inventory = filereader.GetInventory();
+            foreach (var kvp in Inventory)
+            {
+                NamesOfItems.Add(kvp.Value[0].NameOfItem);
+            }
         }
+
+        private List<string> NamesOfItems = new List<string>();
 
         public decimal TotalCart { get; private set; }
 
         public Dictionary<string, List<VendingMachineItem>> Inventory { get; private set; }
 
-        public List<VendingMachineItem> ShoppingCart = new List<VendingMachineItem>();
+        private Dictionary<string, int> SalesReportDictionary = new Dictionary<string, int>();
 
-        //public string[] Slots { get; }
+        public List<VendingMachineItem> ShoppingCart = new List<VendingMachineItem>();
 
         public decimal CurrentMoneyProvided { get; private set; }
 
@@ -40,6 +46,11 @@ namespace Capstone
             CurrentMoneyProvided += moneyInserted;
         }
 
+        public void PayForItem(VendingMachineItem item)
+        {
+            CurrentMoneyProvided -= item.PriceOfItem;
+        }
+
         public void ResetCurrentMoneyProvided()
         {
             CurrentMoneyProvided = 0;
@@ -48,7 +59,6 @@ namespace Capstone
         public void RemoveInventory(VendingMachineItem item)
         {
             Inventory[item.SlotID].Remove(item);
-            //Inventory.Remove(item.SlotID);
         }
         public void ReturnToInventory(VendingMachineItem item)
         {
@@ -77,11 +87,6 @@ namespace Capstone
             ShoppingCart.Remove(item);
         }
 
-        //public void CurrentMoney(decimal feedMoney)
-        //{
-        //    CurrentMoneyProvided += feedMoney;
-        //}
-
         public Change GetChange()
         {
             Change changeBack = new Change();
@@ -93,12 +98,46 @@ namespace Capstone
         {
             try
             {
-                using (StreamWriter sw = new StreamWriter("transactionlog.txt", true))
+                using (StreamWriter sw = new StreamWriter("Log.txt", true))
                 {
                     DateTime currentDateTime = DateTime.Now;
-                    sw.WriteLine(currentDateTime + " " + transactionInformation);
+                    sw.WriteLine(currentDateTime.ToShortDateString() + " " + currentDateTime.ToLongTimeString()
+                        + " " + transactionInformation);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public void UpdateSalesReport(Dictionary<string, List<VendingMachineItem>> inventory)
+        {
 
 
+            int i = 0;
+
+            foreach (var kvp2 in inventory)
+            {
+                string name = NamesOfItems[i];
+                i++;
+                int number = kvp2.Value.Count;
+                SalesReportDictionary.Add(name, 5 - number);
+            }
+            
+
+        }
+
+        public void PrintSalesReport()
+        {
+            try
+            {
+                using (StreamWriter sw = new StreamWriter("Sales_Report.txt", true))
+                {
+                    foreach (var kvp in SalesReportDictionary)
+                    {
+                        sw.WriteLine($"{kvp.Key}|{kvp.Value}");
+                    }
                 }
             }
             catch (IOException ex)

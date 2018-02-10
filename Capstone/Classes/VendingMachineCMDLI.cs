@@ -48,12 +48,38 @@ namespace Capstone.Classes
                 Console.Clear();
                 PrintPurchaseMenu();
             }
+            else if (mainMenuIntResult == 3)
+            {
+                Console.Clear();
+                Console.WriteLine("ADMIN ONLY: ENTER PASSWORD:");
+                string password = Console.ReadLine();
+                if (password == "No Josh's Allowed")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Printing Sales Report");
+                    Console.WriteLine();
+                    PrintSalesReportMenu();
+                    PrintDisplayMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Nice Try Josh");
+                    Console.WriteLine();
+                    PrintDisplayMenu();
+                }
+            }
             else
             {
                 Console.Clear();
                 Console.WriteLine($"{mainMenuStringResult} is not a valid option, please select from the available choices.");
                 Console.WriteLine();
             }
+        }
+
+        private static void PrintSalesReportMenu()
+        {
+            machine.PrintSalesReport();
         }
 
         private static void PrintDisplayItems()
@@ -84,7 +110,7 @@ namespace Capstone.Classes
             if (subMenuResult == 1)
             {
                 Console.Clear();
-                PrintFeedMoneyDisplay();
+                FeedMoneyMenu();
             }
             else if (subMenuResult == 2)
             {
@@ -138,7 +164,7 @@ namespace Capstone.Classes
 
         private static void PrintCompleteTransaction()
         {
-
+            machine.UpdateSalesReport(machine.Inventory);
             Change change = machine.GetChange();
             Console.WriteLine($"Total Change: ${change.TotalChange}");
             Console.WriteLine("---------------------------------------");
@@ -157,16 +183,18 @@ namespace Capstone.Classes
 
             while (machine.ShoppingCart.Count > 0)
             {
-                machine.PrintLog(machine.ShoppingCart[0].NameOfItem + " " + machine.ShoppingCart[0].SlotID + " $" 
-                    + machine.CurrentMoneyProvided + "     $" + (machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem).ToString());
-
+                machine.PrintLog($"{machine.ShoppingCart[0].NameOfItem}" +
+                                $" {machine.ShoppingCart[0].SlotID}" +
+                                $" ${machine.CurrentMoneyProvided}" +
+                                $" ${(machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem)}");
+                machine.PayForItem(machine.ShoppingCart[0]);
                 machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
             }
             
 
             machine.CalculateTotalShoppingCart(machine.ShoppingCart);
             machine.ResetCurrentMoneyProvided();
-            machine.PrintLog("GIVE CHANGE: $" + change.TotalChange.ToString() + "     $" + machine.CurrentMoneyProvided.ToString());
+            machine.PrintLog($"GIVE CHANGE: ${change.TotalChange}    ${machine.CurrentMoneyProvided:0.00}");
             Console.WriteLine();
             PrintDisplayMenu();
         }
@@ -215,7 +243,7 @@ namespace Capstone.Classes
 
                 }
                 string ItemSelection = Console.ReadLine().ToUpper();
-                Regex reg = new Regex($"(?:REGEX)\\s((?:\\w+)\\s?(?:\\w+)?)");
+                Regex reg = new Regex($"^(?:REMOVE)\\s((?:\\w+)\\s?(?:\\w+)?)");
 
 
                 if (machine.Inventory.Keys.Contains(ItemSelection) && machine.Inventory[ItemSelection].Count > 0)
@@ -231,7 +259,16 @@ namespace Capstone.Classes
                 }
                 else if(reg.IsMatch(ItemSelection))
                 {
-                    machine.RemoveItemsFromCart(machine.Inventory[ItemSelection][0]);
+                    Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
+                    //var myKey = machine.Inventory.Values.FirstOrDefault(x => x.Value == match.Groups[1].Value).Key;
+                    //var emailAdd =
+                    //            (from p in machine.Inventory
+                    //             where p.Value.Contains(match.Groups[1].Value)
+                    //             select p.Key)
+                    //            .FirstOrDefault();
+
+                    Console.Clear();
+                    machine.RemoveItemsFromCart(machine.Inventory[match.Groups[1].Value][0]);
                     machine.ReturnToInventory(machine.Inventory[ItemSelection][0]);
                 }
                 else
@@ -246,7 +283,7 @@ namespace Capstone.Classes
             
         }
 
-        private static void PrintFeedMoneyDisplay()
+        private static void FeedMoneyMenu()
         {
             while (true)
             {
@@ -277,8 +314,6 @@ namespace Capstone.Classes
                     Console.Clear();
                     PrintPurchaseMenu();
                 }
-
-
                 else
                 {
                     Console.Clear();
