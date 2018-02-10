@@ -138,6 +138,7 @@ namespace Capstone.Classes
             else if (purchaseMenuResult == "3" || purchaseMenuResult.ToUpper() == "FINISH" || purchaseMenuResult.ToUpper() == "F")
             {
                 Console.Clear();
+                machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                 PrintFinishTransactionMenu();
             }
             else if (purchaseMenuResult == "4" || purchaseMenuResult.ToUpper() == "CLOSE" || purchaseMenuResult.ToUpper() == "C")
