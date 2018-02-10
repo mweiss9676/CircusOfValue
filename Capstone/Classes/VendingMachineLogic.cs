@@ -162,5 +162,17 @@ namespace Capstone
                 Console.WriteLine(ex);
             }
         }
+
+        public void OpenReport(string path)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+            catch(IOException e)
+            {
+                Console.WriteLine(e);
+            }
+        }
     }
 }
