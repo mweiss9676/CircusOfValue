@@ -122,8 +122,6 @@ namespace Capstone
 
         public void UpdateSalesReport(Dictionary<string, List<VendingMachineItem>> inventory)
         {
-
-
             int i = 0;
 
             foreach (var kvp2 in inventory)

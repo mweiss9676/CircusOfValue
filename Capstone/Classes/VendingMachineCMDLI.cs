@@ -80,9 +80,6 @@ namespace Capstone.Classes
                 if (password == "No Joshes Allowed")
                 {
                     Console.Clear();
-                    Console.WriteLine("Printing Sales Report...");
-                    Console.WriteLine();
-                    machine.PrintSalesReport();
                     AdminMenu();
                 }
                 else
@@ -329,12 +326,14 @@ namespace Capstone.Classes
             Console.WriteLine($"Quarter(s): {change.Quarters}");
             Console.WriteLine($"Dime(s): {change.Dimes}");
             Console.WriteLine($"Nickel(s): {change.Nickels}");
-
             Console.WriteLine();
+
             foreach (var item in machine.ShoppingCart)
             {
                 if (item.SlotID.Contains("A"))
+                {
                     Console.WriteLine($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
+                }
                 else if (item.SlotID.Contains("B"))
                 {
                     Console.WriteLine($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
@@ -361,8 +360,11 @@ namespace Capstone.Classes
             
 
             machine.CalculateTotalShoppingCart(machine.ShoppingCart);
+
             machine.ResetCurrentMoneyProvided();
+
             machine.PrintLog($"GIVE CHANGE: ${change.TotalChange}    ${machine.CurrentMoneyProvided:0.00}");
+
             Console.WriteLine();
 
             while (true)
@@ -402,6 +404,8 @@ namespace Capstone.Classes
                 Console.WriteLine();
                 Console.WriteLine("(2) Open Report");
                 Console.WriteLine();
+                Console.WriteLine("(3) Print Sales Report");
+                Console.WriteLine();
                 string answer = Console.ReadLine();
 
                 if (answer == "1" || answer.ToUpper() == "E" || answer.ToUpper() == "EXIT")
@@ -414,10 +418,18 @@ namespace Capstone.Classes
                     Console.Clear();
                     OpenFileMenu();
                 }
+                else if (answer == "3" || answer.ToUpper() == "P" || answer.ToUpper() == "PRINT")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Printing Sales Report...");
+                    Console.WriteLine();
+                    machine.PrintSalesReport();
+                }
                 else
                 {
                     Console.Clear();
                     Console.WriteLine($"{answer} Is Not A Valid Option, Please Select From One Of The Options Below");
+                    Console.WriteLine();
                 }
             }
         }
