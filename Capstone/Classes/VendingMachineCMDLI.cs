@@ -326,7 +326,7 @@ namespace Capstone.Classes
 
                     Console.Clear();
                     machine.ReturnToInventory(machine.ShoppingCart[0]);
-                    machine.RemoveItemsFromCart(machine.Inventory[key][0]);
+                    machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
                 }
                 else
                 {
