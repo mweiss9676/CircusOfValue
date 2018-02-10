@@ -122,7 +122,14 @@ namespace Capstone
                 string name = NamesOfItems[i];
                 i++;
                 int number = kvp2.Value.Count;
-                SalesReportDictionary.Add(name, 5 - number);
+                if (SalesReportDictionary.ContainsKey(name))
+                {
+                    SalesReportDictionary[name] += 5 - number;
+                }
+                else
+                {
+                    SalesReportDictionary.Add(name, 5 - number);
+                }
             }
             
 
@@ -138,6 +145,7 @@ namespace Capstone
                     {
                         sw.WriteLine($"{kvp.Key}|{kvp.Value}");
                     }
+                    sw.WriteLine("---------------------------------");
                 }
             }
             catch (IOException ex)

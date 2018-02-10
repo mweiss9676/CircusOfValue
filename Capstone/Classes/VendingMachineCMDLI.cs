@@ -39,21 +39,26 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Display Items");
             Console.WriteLine();
             Console.WriteLine("(2) Purchase Items");
-            string mainMenuStringResult = Console.ReadLine();
-            int mainMenuIntResult;
-            int.TryParse(mainMenuStringResult, out mainMenuIntResult);
+            Console.WriteLine();
+            Console.WriteLine("(3) Close Vending Machine");
+            string mainMenuResult = Console.ReadLine();
 
-            if(mainMenuIntResult == 1)
+            if(mainMenuResult == "1" || mainMenuResult.ToUpper() == "D" || mainMenuResult.ToUpper() == "DISPLAY")
             {
                 Console.Clear();
                 PrintDisplayItems();
             }
-            else if(mainMenuIntResult == 2)
+            else if(mainMenuResult == "2" || mainMenuResult.ToUpper() == "P" || mainMenuResult.ToUpper() == "PURCHASE")
             {
                 Console.Clear();
                 PrintPurchaseMenu();
             }
-            else if (mainMenuIntResult == 3)
+            else if (mainMenuResult == "3" || mainMenuResult.ToUpper() == "C" || mainMenuResult.ToUpper() == "CLOSE")
+            {
+                Console.Clear();
+                Environment.Exit(0);
+            }
+            else if (mainMenuResult == "45")
             {
                 Console.Clear();
                 Console.WriteLine("ADMIN ONLY: ENTER PASSWORD:");
@@ -77,7 +82,7 @@ namespace Capstone.Classes
             else
             {
                 Console.Clear();
-                Console.WriteLine($"{mainMenuStringResult} is not a valid option, please select from the available choices.");
+                Console.WriteLine($"{mainMenuResult} is not a valid option, please select from the available choices.");
                 Console.WriteLine();
             }
         }
@@ -91,46 +96,57 @@ namespace Capstone.Classes
         {
             foreach (var kvp in machine.Inventory)
             {
-                Console.WriteLine($"{kvp.Key} | {kvp.Value[0].NameOfItem} | {kvp.Value[2].PriceOfItem}");
+                if (kvp.Value.Count <= 0)
+                {
+                    Console.WriteLine("SOLD OUT");
+                }
+                else
+                {
+                    Console.WriteLine($"{kvp.Key} | {kvp.Value[0].NameOfItem} | {kvp.Value[0].PriceOfItem}");
+                }
             }
             Console.WriteLine();
         }
 
         private static void PrintPurchaseMenu()
         {
-            Console.WriteLine("(1) Feed Money");
+            Console.WriteLine("(1) Insert Money");
             Console.WriteLine();
             Console.WriteLine("(2) Select Product");
             Console.WriteLine();
             Console.WriteLine("(3) Finish Transaction");
             Console.WriteLine();
+            Console.WriteLine("(4) Close Vending Machine");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine($"Current Money Provided: ${machine.CurrentMoneyProvided} ");
-            string doneOption = Console.ReadLine();
-            int subMenuResult;
-            int.TryParse(doneOption, out subMenuResult);
+            string purchaseMenuResult = Console.ReadLine();
 
-            if (subMenuResult == 1)
+            if (purchaseMenuResult == "1" || purchaseMenuResult.ToUpper() == "INSERT" || purchaseMenuResult.ToUpper() == "I")
             {
                 Console.Clear();
                 FeedMoneyMenu();
             }
-            else if (subMenuResult == 2)
+            else if (purchaseMenuResult == "2" || purchaseMenuResult.ToUpper() == "SELECT" || purchaseMenuResult.ToUpper() == "S")
             {
                 Console.Clear();
                 DisplayProductSelection();
             }
-            else if (subMenuResult == 3)
+            else if (purchaseMenuResult == "3" || purchaseMenuResult.ToUpper() == "FINISH" || purchaseMenuResult.ToUpper() == "F")
             {
                 Console.Clear();
                 PrintFinishTransactionMenu();
             }
+            else if (purchaseMenuResult == "4" || purchaseMenuResult.ToUpper() == "CLOSE" || purchaseMenuResult.ToUpper() == "C")
+            {
+                Console.Clear();
+                Environment.Exit(0);
+            }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"You Entered {doneOption}. This Is Not A Valid Option.");
+                Console.WriteLine($"You Entered {purchaseMenuResult}. This Is Not A Valid Option.");
                 Console.WriteLine();
                 PrintPurchaseMenu();
             }
@@ -138,14 +154,16 @@ namespace Capstone.Classes
 
         private static void PrintFinishTransactionMenu()
         {
-            Console.WriteLine($"Your Total Cart is: {machine.TotalCart}");
+            Console.WriteLine($"Your Total Cart is: ${machine.TotalCart}");
             Console.WriteLine();
-            Console.WriteLine($"Your Current Money Inserted is: {machine.CurrentMoneyProvided}");
+            Console.WriteLine($"Your Current Money Inserted is: ${machine.CurrentMoneyProvided}");
             Console.WriteLine();
-            Console.WriteLine("Are You Ready To Complete The Transaction? (Y)es To Process the Transaction / (N)o To Be Returned To The Product Selection Screen:");
+            Console.WriteLine("Are You Ready To Complete The Transaction?");
+            Console.WriteLine("(1) Yes");
+            Console.WriteLine("(2) No");
             string completeTransaction = Console.ReadLine();
             
-            if (completeTransaction.ToUpper() == "Y" || completeTransaction.ToUpper() == "YES")
+            if (completeTransaction.ToUpper() == "1" || completeTransaction.ToUpper() == "Y" || completeTransaction.ToUpper() == "YES")
             {
                 if (machine.CurrentMoneyProvided - machine.TotalCart >= 0)
                 {
@@ -160,7 +178,7 @@ namespace Capstone.Classes
                     PrintPurchaseMenu();
                 }
             }
-            else if (completeTransaction.ToUpper() == "N" || completeTransaction.ToUpper() == "NO")
+            else if (completeTransaction.ToUpper() == "2" || completeTransaction.ToUpper() == "N" || completeTransaction.ToUpper() == "NO")
             {
                 Console.Clear();
                 PrintPurchaseMenu();
@@ -183,7 +201,20 @@ namespace Capstone.Classes
             Console.WriteLine();
             foreach (var item in machine.ShoppingCart)
             {
-                Console.WriteLine($"You are eating {item.NameOfItem} {item.ItemYumYum()}");
+                if (item.SlotID.Contains("A"))
+                    Console.WriteLine($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
+                else if (item.SlotID.Contains("B"))
+                {
+                    Console.WriteLine($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
+                }
+                else if (item.SlotID.Contains("C"))
+                {
+                    Console.WriteLine($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
+                }
+                else
+                {
+                    Console.WriteLine($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
+                }
             }
 
             while (machine.ShoppingCart.Count > 0)
@@ -201,7 +232,28 @@ namespace Capstone.Classes
             machine.ResetCurrentMoneyProvided();
             machine.PrintLog($"GIVE CHANGE: ${change.TotalChange}    ${machine.CurrentMoneyProvided:0.00}");
             Console.WriteLine();
-            PrintDisplayMenu();
+
+            while (true)
+            {
+                Console.WriteLine("(1) Return To Main Menu");
+                Console.WriteLine("(2) Close Vending Machine");
+
+                string menuChoice = Console.ReadLine();
+                if (menuChoice.ToUpper() == "1" || menuChoice.ToUpper() == "RETURN" || menuChoice.ToUpper() == "R")
+                {
+                    Console.Clear();
+                    PrintDisplayMenu();
+                }
+                else if (menuChoice.ToUpper() == "2" || menuChoice.ToUpper() == "CLOSE" || menuChoice.ToUpper() == "C")
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("That Is Not A Valid Choice, Please Enter (1) Or (2)");
+                }
+            }
         }
 
         private static void DisplayProductSelection()
@@ -293,14 +345,14 @@ namespace Capstone.Classes
             while (true)
             {
                 Console.WriteLine("Please Insert Money:");
-                Console.WriteLine("$1");
-                Console.WriteLine("$2");
-                Console.WriteLine("$5");
-                Console.WriteLine("$10");
-                Console.WriteLine("$20");
+                Console.WriteLine("(1)  $1");
+                Console.WriteLine("(2)  $2");
+                Console.WriteLine("(5)  $5");
+                Console.WriteLine("(10) $10");
+                Console.WriteLine("(20) $20");
                 Console.WriteLine("(D)one inserting money.");
                 Console.WriteLine();
-                Console.WriteLine($"Money Inserted: {machine.CurrentMoneyProvided}");
+                Console.WriteLine($"Money Inserted: ${machine.CurrentMoneyProvided}");
                 string answer = Console.ReadLine();
 
                 decimal moneyInserted;
