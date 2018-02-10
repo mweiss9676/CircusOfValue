@@ -12,6 +12,7 @@ namespace Capstone.Classes
     public class VendingMachineCMDLI
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
+        static bool soundsOFF = false;
 
         static void Main(string[] args)
         {
@@ -43,6 +44,8 @@ namespace Capstone.Classes
             Console.WriteLine("(2) Purchase Items");
             Console.WriteLine();
             Console.WriteLine("(3) Close Vending Machine");
+            Console.WriteLine();
+            Console.WriteLine("(4) Sounds Off");
             string mainMenuResult = Console.ReadLine();
 
             if(mainMenuResult == "1" || mainMenuResult.ToUpper() == "D" || mainMenuResult.ToUpper() == "DISPLAY")
@@ -59,6 +62,15 @@ namespace Capstone.Classes
             {
                 Console.Clear();
                 Environment.Exit(0);
+            }
+            else if (mainMenuResult == "4" || mainMenuResult.ToUpper() == "S" 
+                  || mainMenuResult.ToUpper() == "OFF" || mainMenuResult.ToUpper() == "O"
+                  || mainMenuResult.ToUpper() == "SOUNDS")
+            {
+                Console.Clear();
+                soundsOFF = true;
+                Console.WriteLine("Turning Sounds Off...");
+                Console.WriteLine();
             }
             else if (mainMenuResult == "45")
             {
@@ -318,8 +330,6 @@ namespace Capstone.Classes
             Console.WriteLine($"Dime(s): {change.Dimes}");
             Console.WriteLine($"Nickel(s): {change.Nickels}");
 
-            
-
             Console.WriteLine();
             foreach (var item in machine.ShoppingCart)
             {
@@ -360,7 +370,13 @@ namespace Capstone.Classes
                 Console.WriteLine("(1) Return To Main Menu");
                 Console.WriteLine("(2) Close Vending Machine");
 
+                if (soundsOFF == false)
+                {
+                    change.ChangeSound();
+                }
+
                 string menuChoice = Console.ReadLine();
+
                 if (menuChoice.ToUpper() == "1" || menuChoice.ToUpper() == "RETURN" || menuChoice.ToUpper() == "R")
                 {
                     Console.Clear();

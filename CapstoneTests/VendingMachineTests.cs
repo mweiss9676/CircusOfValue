@@ -81,5 +81,15 @@ namespace CapstoneTests
            
             Assert.AreEqual(79, countAfter);
         }
+
+        [TestMethod]
+        public void CoinSound()
+        {
+            test.AddMoney(2.0M);
+
+            Change change = test.GetChange();
+
+            change.ChangeSound();
+        }
     }
 }

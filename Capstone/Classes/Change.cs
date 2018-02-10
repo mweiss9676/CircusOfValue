@@ -16,6 +16,8 @@ namespace Capstone.Classes
 
         public decimal TotalChange { get; private set; }
 
+        public int NumberOfCoinsTotal { get; private set; }
+
         public void CalculateChange(decimal currentMoneyProvided, decimal totalCart)
         {
             decimal change = 0.0M;
@@ -28,18 +30,33 @@ namespace Capstone.Classes
             {
                 change -= .25M;
                 Quarters++;
+                NumberOfCoinsTotal++;
             }
             while (change - .10M >= 0.0M)
             {
-                change -= .10M;
+                change -= .10M;     
                 Dimes++;
+                NumberOfCoinsTotal++;
             }
             while (change - .05M >= 0.0M)
             {
                 change -= .05M;
                 Nickels++;
+                NumberOfCoinsTotal++;
             }
+        }
 
+        public void ChangeSound()
+        {
+
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"Sounds\8bit_coin.wav");
+            
+            while (NumberOfCoinsTotal > 0)
+            {
+                player.Play();
+                System.Threading.Thread.Sleep(325);
+                NumberOfCoinsTotal--;
+            }
         }
 
     }
