@@ -297,8 +297,9 @@ namespace Capstone.Classes
                 concatMenu.Add("Current Money Provided: | $".PadLeft(37) + currentMoney.PadRight(8));
 
                 PrintConcatenatedMenu(concatMenu);
+                Console.WriteLine("(D)one shopping?" .PadLeft(0));
                 Console.WriteLine();
-                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)".PadLeft(54));
+                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)");
 
                 Value();
                 string ItemSelection = Console.ReadLine().ToUpper();
