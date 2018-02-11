@@ -17,6 +17,7 @@ namespace CapstoneTests
         VendingMachineItem drink = new DrinkItem("drink", 1.40M, "D2");
         VendingMachineItem gum = new ChipItem("gum", 3.80M, "C3");
         VendingMachineItem heavy = new ChipItem("Heavy", 5.80M, "C2");
+        VendingMachineItem realStats = new DrinkItem("Cola", 1.25M, "C1");
 
 
         [TestMethod]
@@ -59,8 +60,7 @@ namespace CapstoneTests
         [TestMethod]
         public void CheckRemovedFromInventory()
         {
-            //int countBefore = test.Inventory.Count;
-            decimal countBefore = 0;
+            int countBefore = 0;
 
             foreach (var kvp in test.Inventory)
             {
@@ -69,9 +69,9 @@ namespace CapstoneTests
 
             Assert.AreEqual(80, countBefore);
 
-            test.RemoveItemFromInventory(heavy);
+            test.RemoveItemFromInventory(realStats);
 
-            decimal countAfter = 0;
+            int countAfter = 0;
 
             foreach (var kvp in test.Inventory)
             {

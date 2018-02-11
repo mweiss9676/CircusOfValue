@@ -39,6 +39,7 @@ namespace Capstone.Classes
 
         private static void TopMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("(1) Display Items");
             Console.WriteLine();
             Console.WriteLine("(2) Purchase Items");
@@ -100,6 +101,7 @@ namespace Capstone.Classes
 
         private static void DisplayMenu()
         {
+            Console.WriteLine();
             foreach (var kvp in machine.Inventory)
             {
                 if (kvp.Value.Count <= 0)
@@ -116,6 +118,7 @@ namespace Capstone.Classes
 
         private static void MainMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("(1) Insert Money");
             Console.WriteLine();
             Console.WriteLine("(2) Select Product");
@@ -163,6 +166,7 @@ namespace Capstone.Classes
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("Please Insert Money:");
                 Console.WriteLine("(1)  $1");
                 Console.WriteLine("(2)  $2");
@@ -208,7 +212,7 @@ namespace Capstone.Classes
         {
             while (true)
             {
-
+                Console.WriteLine();
                 foreach (var kvp in machine.Inventory)
                 {
                     if (machine.GetEachItemsCurrentInventory(kvp.Value) > 0)
@@ -270,9 +274,20 @@ namespace Capstone.Classes
                                where string.Compare(k.NameOfItem, match.Groups[1].ToString(), true) == 0
                                select k.SlotID).FirstOrDefault();
 
+                    var item = machine.ShoppingCart.FindIndex(x => x.NameOfItem.ToUpper() == match.Value);
+
                     Console.Clear();
-                    machine.ReturnToInventory(machine.ShoppingCart[0]);
-                    machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
+                    machine.ReturnToInventory(machine.ShoppingCart[item]);
+                    machine.RemoveItemsFromCart(machine.ShoppingCart[item]);
+                }
+                else if (reg.IsMatch(ItemSelection) && machine.ShoppingCart.Count > 0
+                   && machine.ShoppingCart.Any(x => x.SlotID.ToUpper() == match.Groups[1].ToString())) //checks to make sure mispellings aren't searched for
+                {
+                    var item = machine.ShoppingCart.FindIndex(x => x.SlotID.ToUpper() == match.Value);
+
+                    Console.Clear();
+                    machine.ReturnToInventory(machine.ShoppingCart[item]);
+                    machine.RemoveItemsFromCart(machine.ShoppingCart[item]);
                 }
                 else
                 {
@@ -285,6 +300,7 @@ namespace Capstone.Classes
 
         private static void CompleteTransactionMenu()
         {
+            Console.WriteLine();
             Console.WriteLine($"Your Total Cart is: ${machine.TotalCart}");
             Console.WriteLine();
             Console.WriteLine($"Your Current Money Inserted is: ${machine.CurrentMoneyProvided}");
@@ -320,6 +336,7 @@ namespace Capstone.Classes
         {
             machine.UpdateSalesReport(machine.Inventory);
             Change change = machine.GetChange();
+            Console.WriteLine();
             Console.WriteLine($"Total Change: ${change.TotalChange}");
             Console.WriteLine("---------------------------------------");
             Console.WriteLine();
@@ -400,6 +417,7 @@ namespace Capstone.Classes
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("(1) Exit Admin Menu");
                 Console.WriteLine();
                 Console.WriteLine("(2) Open Report");
@@ -438,6 +456,7 @@ namespace Capstone.Classes
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("What Report Would You Like To Open");
                 Console.WriteLine();
                 Console.WriteLine("(1) Open Sales Report");
