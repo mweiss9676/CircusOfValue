@@ -183,7 +183,7 @@ namespace Capstone.Classes
                 int longest = menu.Max(x => x.Length);
 
                 PrintMenusSingleSpaced(menu);
-                Value();
+                
 
                 if (machine.ShoppingCart.Count > 0)
                 {
@@ -191,6 +191,7 @@ namespace Capstone.Classes
 
                     Console.WriteLine($"Current Total: ${machine.TotalCart}");
                 }
+                Value();
                 string answer = Console.ReadLine();
 
                 decimal moneyInserted;
