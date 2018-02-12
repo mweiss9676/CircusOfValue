@@ -418,28 +418,24 @@ namespace Capstone.Classes
                 if (item.SlotID.Contains("A"))
                 {
                     temp.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
-                    //PrintMenus(new string[] { $"You are crunching on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else if (item.SlotID.Contains("B"))
                 {
                     temp.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
-                    //PrintMenus(new string[] { $"You are munching on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else if (item.SlotID.Contains("C"))
                 {
                     temp.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
-                   // PrintMenus(new string[] { $"You are drinking {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else
                 {
                     temp.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
-                    //PrintMenus(new string[] { $"You are chewing on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
             }
 
             Console.Clear();
             CircusOfSmall();
-            PrintMenus(temp.ToArray());
+            PrintMenusSingleSpaced(temp.ToArray());
             ValueSmall();
             Console.ReadLine();
 
