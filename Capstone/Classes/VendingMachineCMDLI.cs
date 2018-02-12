@@ -386,6 +386,12 @@ namespace Capstone.Classes
                 Console.Clear();
                 MainMenu();
             }
+            else
+            {
+                Console.Clear();
+                PrintMenus(new string[] {"Please Enter A Valid Answer." });
+                CompleteTransactionMenu();
+            }
         }
 
         private static void TransactionCompletedGiveChangeMenu()
@@ -399,7 +405,6 @@ namespace Capstone.Classes
 
             string[] menu = { totalChange, "---------------------------------------" , quarters, dimes, nickels };
 
-
             CircusOf();
 
             PrintMenus(menu);
@@ -411,60 +416,10 @@ namespace Capstone.Classes
                 change.ChangeSound();
             }
             Console.ReadLine();
-
-            List<string> temp = new List<string>();
-
-            foreach (var item in machine.ShoppingCart)
-            {
-                if (item.SlotID.Contains("A"))
-                {
-                    temp.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
-                }
-                else if (item.SlotID.Contains("B"))
-                {
-                    temp.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
-                }
-                else if (item.SlotID.Contains("C"))
-                {
-                    temp.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
-                }
-                else
-                {
-                    temp.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
-                }
-            }
-
-            Console.Clear();
-            CircusOfSmall();
-            PrintMenusSingleSpaced(temp.ToArray());
-            ValueSmall();
-            Console.ReadLine();
-
-
-            while (machine.ShoppingCart.Count > 0)
-            {
-                string name = machine.ShoppingCart[0].NameOfItem;
-                string slot = machine.ShoppingCart[0].SlotID;
-                string cmp = "$" + machine.CurrentMoneyProvided.ToString();
-                string total = "$" + (machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem).ToString();
-
-                machine.PrintLog(name.PadRight(20) + slot.PadRight(3) + cmp.PadRight(8) + total);
-                machine.PayForItem(machine.ShoppingCart[0]);
-                machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
-            }
-            
-
-            machine.CalculateTotalShoppingCart(machine.ShoppingCart);
-
-            machine.ResetCurrentMoneyProvided();
-
-            machine.PrintLog($"GIVE CHANGE:".PadRight(23) +  $"${change.TotalChange}   ${machine.CurrentMoneyProvided:0.00}");
-
-            Console.WriteLine();
-            Console.Clear();
-
+           
             while (true)
             {
+                Console.Clear();
                 CircusOf();
                 string[] menu2 = { "(1) Return To Main Menu", "(2) Close Vending Machine" };
                 PrintMenus(menu2);
