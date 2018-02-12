@@ -360,7 +360,7 @@ namespace Capstone.Classes
             string totalCart = "Your Total Cart is:" + machine.TotalCart.ToString();
             string currentMoney = "Your Current Money Inserted is: " + machine.CurrentMoneyProvided.ToString();
 
-            string[] menu = { totalCart, currentMoney, "Are You Ready To Complete The Transaction?", "(1) Yes", "(2) No" };
+            string[] menu = { totalCart, currentMoney, "Are You Ready To Complete The Transaction?", "(1) Yes", "(2) No", "(3) Sounds Off" };
             CircusOf();
             PrintMenus(menu);
             Value();
@@ -385,6 +385,14 @@ namespace Capstone.Classes
             {
                 Console.Clear();
                 MainMenu();
+            }
+            else if (completeTransaction.ToUpper() == "3" || completeTransaction.ToUpper() == "OFF" 
+                || completeTransaction.ToUpper() == "SOUNDS OFF" || completeTransaction.ToUpper() == "S")
+            {
+                Console.Clear();
+                soundsOFF = true;
+                PrintMenus(new string[] { "Turning Sounds Off..."});
+                CompleteTransactionMenu();
             }
             else
             {
