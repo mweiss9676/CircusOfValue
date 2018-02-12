@@ -16,11 +16,13 @@ namespace Capstone.Classes
 
         static void Main(string[] args)
         {
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
+            ConsoleColor primaryColor = ConsoleColor.Red;
+            ConsoleColor secondaryColor = ConsoleColor.White;
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
             Console.Clear();
             Console.SetWindowSize(Console.LargestWindowWidth, 41);
-            Console.SetBufferSize(Console.LargestWindowWidth * 2, 160);
+            Console.SetBufferSize(Console.LargestWindowWidth * 2, 100);
             Console.SetWindowPosition(0, 0);
 
             while (true)
@@ -70,7 +72,7 @@ namespace Capstone.Classes
                 Console.Clear();
                 soundsOFF = true;
                 CircusOf();
-                string[] soundsOff = { "Turning Sounds Off...", "Press Any Button To Return"};
+                string[] soundsOff = { "Turning Sounds Off...", "Press Return To Return"};
                 PrintMenus(soundsOff);
                 Value();
                 Console.ReadLine();
@@ -110,7 +112,7 @@ namespace Capstone.Classes
         {
             while (true)
             {
-                CircusOf();
+                CircusOfSmall();
 
                 Console.WriteLine();
                 foreach (var kvp in machine.Inventory)
@@ -127,7 +129,7 @@ namespace Capstone.Classes
                 }
                 Console.WriteLine();
                 Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
-                Console.WriteLine("Press Any Button To Return");
+                Console.WriteLine("Press Return To Return");
                 Value();
                 Console.ReadLine();
                 Console.Clear();
@@ -178,11 +180,11 @@ namespace Capstone.Classes
         {
             while (true)
             {
-                CircusOf();
+                CircusOfSmall();
                 string[] menu = { "Please Insert Money:", "(1)  $1", "(2)  $2", "(5)  $5", "(10) $10", "(20) $20", "(D)one Inserting Money", $"Money Inserted: ${machine.CurrentMoneyProvided}" };
                 int longest = menu.Max(x => x.Length);
 
-                PrintMenusSingleSpaced(menu);
+                PrintMenus(menu);
                 
 
                 if (machine.ShoppingCart.Count > 0)
@@ -223,8 +225,8 @@ namespace Capstone.Classes
         {
             while (true)
             {
-                Console.Clear();
-                CircusOf();
+                //Console.Clear();
+                CircusOfSmall();
                 List<string> concatMenu = new List<string>();
                 int sizeOfCart = machine.ShoppingCart.Count;
 
@@ -246,7 +248,7 @@ namespace Capstone.Classes
                     string price = machine.ShoppingCart[0].PriceOfItem.ToString();
                     concatMenu[0] += "Your Current Cart: ".PadLeft(22) + name + ("$" + price).PadLeft(10);
 
-                    for (int i = 1; i < machine.ShoppingCart.Count; i++)
+                    for (int i = 1; i < sizeOfCart; i++)
                     {
                         string nameOfItem = machine.ShoppingCart[i].NameOfItem;
                         string priceOfItem = machine.ShoppingCart[i].PriceOfItem.ToString();
@@ -290,6 +292,7 @@ namespace Capstone.Classes
                         concatMenu[i - 65] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
                     }
                 }
+                
                 machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                 string totalCart = machine.TotalCart.ToString();
                 string currentMoney = machine.CurrentMoneyProvided.ToString();
@@ -298,40 +301,42 @@ namespace Capstone.Classes
                 concatMenu.Add("Current Money Provided: | $".PadLeft(37) + currentMoney.PadRight(8));
 
                 PrintConcatenatedMenu(concatMenu);
-                Console.WriteLine("(D)one shopping?" .PadLeft(0));
+                Console.WriteLine("(D)one shopping?".PadLeft(25));
                 Console.WriteLine();
-                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)");
+                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)".PadLeft(54));
 
-                Value();
+                ValueSmall();
                 string ItemSelection = Console.ReadLine().ToUpper();
                 Regex reg = new Regex($"^(?:REMOVE)\\s((?:\\w+)\\s?(?:\\w+)?)");
                 Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
 
+                //Adds the customer's choice to their cart and removes it from the inventory
                 if (machine.Inventory.Keys.Contains(ItemSelection) && machine.Inventory[ItemSelection].Count > 0)
                 {
                     Console.Clear();
                     machine.AddItemToCart(machine.Inventory[ItemSelection][0]);
                     machine.RemoveItemFromInventory(machine.Inventory[ItemSelection][0]);
                 }
+
+                //returns to the main menu
                 else if (ItemSelection.ToUpper() == "D" || ItemSelection.ToUpper() == "DONE")
                 {
                     Console.Clear();
                     MainMenu();
                 }
+
+                //removes item from cart by matching with the item's Name
                 else if (reg.IsMatch(ItemSelection) && machine.ShoppingCart.Count > 0
                     && machine.ShoppingCart.Any(x => x.NameOfItem.ToUpper() == match.Groups[1].ToString())) //checks to make sure mispellings aren't searched for
                 {
-                    //Gets the key from the slotID property of the shopping cart so that it can be passed to the methods below.
-                    var key = (from k in machine.ShoppingCart
-                               where string.Compare(k.NameOfItem, match.Groups[1].ToString(), true) == 0
-                               select k.SlotID).FirstOrDefault();
-
                     var item = machine.ShoppingCart.FindIndex(x => x.NameOfItem.ToUpper() == match.Value);
 
                     Console.Clear();
                     machine.ReturnToInventory(machine.ShoppingCart[item]);
                     machine.RemoveItemsFromCart(machine.ShoppingCart[item]);
                 }
+
+                //removes the item from the cart if it matches with item's SlotID
                 else if (reg.IsMatch(ItemSelection) && machine.ShoppingCart.Count > 0
                    && machine.ShoppingCart.Any(x => x.SlotID.ToUpper() == match.Groups[1].ToString())) //checks to make sure mispellings aren't searched for
                 {
@@ -344,8 +349,7 @@ namespace Capstone.Classes
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine($"{ItemSelection} is not a valid choice. Please select one of the values below.");
-                    Console.WriteLine();
+                    PrintMenusSingleSpaced(new string[] { $"{ItemSelection} is not a valid choice. Please select one of the values below." });
                 }
             }
         }
@@ -372,7 +376,7 @@ namespace Capstone.Classes
                 else
                 {
                     Console.Clear();
-                    PrintMenus(new string[] { "Insufficient Funds Buddy!, Come Back When You Have Some Dough!" });
+                    PrintMenus(new string[] { "Insufficient Funds, Come Back When You Have Some Currency Fella!" });
                     MainMenu();
                 }
             }
@@ -393,29 +397,52 @@ namespace Capstone.Classes
             machine.UpdateSalesReport(machine.Inventory);
 
             string[] menu = { totalChange, "---------------------------------------" , quarters, dimes, nickels };
+
+
             CircusOf();
+
             PrintMenus(menu);
+
             Value();
+
+            if (soundsOFF == false)
+            {
+                change.ChangeSound();
+            }
+            Console.ReadLine();
+
+            List<string> temp = new List<string>();
 
             foreach (var item in machine.ShoppingCart)
             {
                 if (item.SlotID.Contains("A"))
                 {
-                    PrintMenus(new string[] { $"You are crunching on {item.NameOfItem} {item.ItemYumYum()}" });
+                    temp.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
+                    //PrintMenus(new string[] { $"You are crunching on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else if (item.SlotID.Contains("B"))
                 {
-                    PrintMenus(new string[] { $"You are munching on {item.NameOfItem} {item.ItemYumYum()}" });
+                    temp.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
+                    //PrintMenus(new string[] { $"You are munching on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else if (item.SlotID.Contains("C"))
                 {
-                    PrintMenus(new string[] { $"You are drinking {item.NameOfItem} {item.ItemYumYum()}" });
+                    temp.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
+                   // PrintMenus(new string[] { $"You are drinking {item.NameOfItem} {item.ItemYumYum()}" });
                 }
                 else
                 {
-                    PrintMenus(new string[] { $"You are chewing on {item.NameOfItem} {item.ItemYumYum()}" });
+                    temp.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
+                    //PrintMenus(new string[] { $"You are chewing on {item.NameOfItem} {item.ItemYumYum()}" });
                 }
             }
+
+            Console.Clear();
+            CircusOfSmall();
+            PrintMenus(temp.ToArray());
+            ValueSmall();
+            Console.ReadLine();
+
 
             while (machine.ShoppingCart.Count > 0)
             {
@@ -441,13 +468,8 @@ namespace Capstone.Classes
             {
                 CircusOf();
                 string[] menu2 = { "(1) Return To Main Menu", "(2) Close Vending Machine" };
-                PrintMenusSingleSpaced(menu2);
+                PrintMenus(menu2);
                 Value();
-
-                if (soundsOFF == false)
-                {
-                    change.ChangeSound();
-                }
 
                 string menuChoice = Console.ReadLine();
 
@@ -626,6 +648,31 @@ namespace Capstone.Classes
                 Console.SetCursorPosition((Console.CursorLeft), Console.CursorTop);
                 Console.WriteLine(s);
             }
+        }
+
+        private static void CircusOfSmall()
+        {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$     $$$$$$$$$$$$                 $$$$$$$$$$$     $$$$$$$$$$$$     $$");
+            Console.WriteLine("$$     $$            $$           $$           $$          $$     $$            $    $$             $$    $$                          $$           $$   $$               $$");
+            Console.WriteLine("$$    $$                          $$           $$$$$$$$$$$$      $$                  $$             $$     $$$$$$$$$$$               $$             $$  $$$$$$$$         $$");
+            Console.WriteLine("$$    $$                          $$           $$          $$    $$                  $$             $$                $$             $$             $$  $$               $$");
+            Console.WriteLine("$$     $$            $$           $$           $$           $$    $$            $     $$           $$     $           $$              $$           $$   $$               $$");
+            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$        $$$$$$$$$$$$                 $$$$$$$$$$$     $$               $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        }
+
+        private static void ValueSmall()
+        {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$                         $$             $$   $$$$          $$            $$             $$   $$$$$$$$$$$$$$$$$    $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                          $$          $$     $$  $$        $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                            $$       $$      $$   $$       $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                             $$    $$        $$$$$$$$      $$            $$             $$   $$$$$$$$$$$$          $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                              $$  $$         $$      $$    $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                               $$$$          $$       $$   $$             $$           $$    $$                                                                         $$");
+            Console.WriteLine("$$                                $$           $$        $$  $$$$$$$$$$$$     $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         }
     }
 }
