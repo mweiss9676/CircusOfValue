@@ -205,7 +205,8 @@ namespace Capstone.Classes
                 {
                     Console.Clear();
                     machine.AddMoney(moneyInserted);
-                    machine.PrintLog("FEED MONEY: $" + moneyInserted + "     $" + machine.CurrentMoneyProvided.ToString());
+                    //machine.PrintLog("FEED MONEY: $" + moneyInserted + "     $" + machine.CurrentMoneyProvided.ToString());
+                    machine.PrintLog($"FEED MONEY:".PadRight(23) + $"{("$" + moneyInserted)}".PadRight(8) + $"{("$" + machine.CurrentMoneyProvided)}");
                 }
                 else if (answer.ToUpper() == "D" || answer.ToUpper() == "Done" || answer.ToLower() == "D" || answer.ToLower() == "Done")
                 {
@@ -442,10 +443,12 @@ namespace Capstone.Classes
 
             while (machine.ShoppingCart.Count > 0)
             {
-                machine.PrintLog($"{machine.ShoppingCart[0].NameOfItem}" +
-                                $" {machine.ShoppingCart[0].SlotID}" +
-                                $" ${machine.CurrentMoneyProvided}" +
-                                $" ${(machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem)}");
+                string name = machine.ShoppingCart[0].NameOfItem;
+                string slot = machine.ShoppingCart[0].SlotID;
+                string cmp = "$" + machine.CurrentMoneyProvided.ToString();
+                string total = "$" + (machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem).ToString();
+
+                machine.PrintLog(name.PadRight(20) + slot.PadRight(3) + cmp.PadRight(8) + total);
                 machine.PayForItem(machine.ShoppingCart[0]);
                 machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
             }
@@ -455,7 +458,7 @@ namespace Capstone.Classes
 
             machine.ResetCurrentMoneyProvided();
 
-            machine.PrintLog($"GIVE CHANGE: ${change.TotalChange}    ${machine.CurrentMoneyProvided:0.00}");
+            machine.PrintLog($"GIVE CHANGE:".PadRight(23) +  $"${change.TotalChange}   ${machine.CurrentMoneyProvided:0.00}");
 
             Console.WriteLine();
             Console.Clear();

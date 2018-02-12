@@ -150,7 +150,7 @@ namespace Capstone
                 {
                     foreach (var kvp in SalesReportDictionary)
                     {
-                        sw.WriteLine($"{kvp.Key}|{kvp.Value}");
+                        sw.WriteLine($"{kvp.Key.ToString().PadRight(20)} {("|     " + kvp.Value.ToString()).PadRight(0)}");
                     }
                     sw.WriteLine("---------------------------------");
                 }
