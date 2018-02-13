@@ -522,7 +522,37 @@ namespace Capstone.Classes
                 change.ChangeSound();
             }
             Console.ReadLine();
-           
+
+            List<string> temp = new List<string>();
+
+            Console.Clear();
+
+            foreach (var item in machine.ShoppingCart)
+            {
+                if (item.SlotID.Contains("A"))
+                {
+                    temp.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
+                }
+                else if (item.SlotID.Contains("B"))
+                {
+                    temp.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
+                }
+                else if (item.SlotID.Contains("C"))
+                {
+                    temp.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
+                }
+                else
+                {
+                    temp.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
+                }
+            }
+
+            CircusOf();
+            PrintMenusSingleSpaced(temp.ToArray());
+            Value();
+
+            Console.ReadLine();
+
             while (true)
             {
                 Console.Clear();
