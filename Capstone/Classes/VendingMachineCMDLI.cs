@@ -76,7 +76,7 @@ namespace Capstone.Classes
 
                     if (i + substringLength < welcomeScroll[0].Length)
                     {
-                        Console.SetCursorPosition(0, Console.WindowHeight / 3);
+                        //Console.SetCursorPosition(0, Console.WindowHeight / 3);
                         Console.WriteLine(welcomeScroll[0].Substring(i, substringLength));
                         Console.WriteLine(welcomeScroll[1].Substring(i, substringLength));
                         Console.WriteLine(welcomeScroll[2].Substring(i, substringLength));
