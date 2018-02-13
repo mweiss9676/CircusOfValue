@@ -143,6 +143,9 @@ namespace Capstone.Classes
             CircusOf();
 
             string[] menu = { "(1) Display Items", "(2) Purchase Items", "(3) Close Vending Machine", "(4) Sounds Off" };
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             PrintMenus(menu);
 
             Value();
@@ -239,6 +242,9 @@ namespace Capstone.Classes
         private static void MainMenu()
         {
             CircusOf();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             string[] menu = { "(1) Insert Money", "(2) Select Product", "(3) Finish Transaction", "(4) Close Vending Machine", $"Current Money Provided: ${machine.CurrentMoneyProvided} " };
             PrintMenus(menu);
 
@@ -460,6 +466,8 @@ namespace Capstone.Classes
 
             string[] menu = { totalCart, currentMoney, "Are You Ready To Complete The Transaction?", "(1) Yes", "(2) No", "(3) Sounds Off" };
             CircusOf();
+            Console.WriteLine();
+            Console.WriteLine();
             PrintMenus(menu);
             Value();
 
@@ -513,6 +521,7 @@ namespace Capstone.Classes
 
             CircusOf();
 
+            Console.WriteLine();
             PrintMenus(menu);
 
             Value();
@@ -548,15 +557,38 @@ namespace Capstone.Classes
             }
 
             CircusOf();
+            Console.WriteLine();
             PrintMenusSingleSpaced(temp.ToArray());
-            Value();
 
-            Console.ReadLine();
-
-            while (true)
+            if (temp.Count == 0)
             {
                 Console.Clear();
+                AfterTransactionMenu();
+            }
+            else if (temp.Count > 0 && temp.Count < 15)
+            {
+                Value();
+            }
+            else
+            {
+                Console.WriteLine();
+                ValuePushedDownByLongList();
+            }
+
+            Console.ReadLine();
+            Console.Clear();
+            AfterTransactionMenu();
+        }
+
+        private static void AfterTransactionMenu()
+        {
+            while (true)
+            {
                 CircusOf();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
                 string[] menu2 = { "(1) Return To Main Menu", "(2) Close Vending Machine" };
                 PrintMenus(menu2);
                 Value();
@@ -740,6 +772,26 @@ namespace Capstone.Classes
             Console.ForegroundColor = primaryColor;
         }
 
+        private static void ValuePushedDownByLongList()
+        {
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$                    $$                $$   $$$$             $$                 $$             $$   $$$$$$$$$$$$$$$$$    $$$$  $$$$  $$$$                               $$");
+            Console.WriteLine("$$                     $$              $$   $$   $$           $$                 $$             $$   $$                   $$$$  $$$$  $$$$                               $$");
+            Console.WriteLine("$$                      $$            $$    $$    $$          $$                 $$             $$   $$                   $$$$  $$$$  $$$$                               $$");
+            Console.WriteLine("$$                       $$          $$     $$     $$         $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                        $$        $$      $$      $$        $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                         $$      $$       $$       $$       $$                 $$             $$   $$$$$$$$$$$$$$$$      $$    $$    $$                                $$");
+            Console.WriteLine("$$                          $$    $$        $$$$$$$$$$$$$     $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                           $$  $$         $$          $$    $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                            $$$$          $$           $$   $$                  $$           $$    $$                                                                  $$");
+            Console.WriteLine("$$                             $$           $$            $$  $$$$$$$$$$$$$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$    $$    $$                                $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
+        }
+
         private static void ValueSmall()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
@@ -773,6 +825,10 @@ namespace Capstone.Classes
 
         private static void PrintMenusSingleSpaced(string[] menu)
         {
+            if (menu.Length == 0)
+            {
+                return;
+            }
             int longest = menu.Max(x => x.Length);
 
             foreach (string s in menu)
