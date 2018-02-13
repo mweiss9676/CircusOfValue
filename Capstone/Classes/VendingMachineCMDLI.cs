@@ -14,7 +14,7 @@ namespace Capstone.Classes
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
         static ConsoleColor primaryColor = ConsoleColor.Red;
-        static ConsoleColor secondaryColor = ConsoleColor.White;
+        static ConsoleColor secondaryColor = ConsoleColor.Yellow;
 
         static void Main(string[] args)
         {
@@ -88,15 +88,13 @@ namespace Capstone.Classes
                         Console.WriteLine(welcomeScroll[10].Substring(i, substringLength));
                         Console.WriteLine(welcomeScroll[11].Substring(i, substringLength));
 
+                        Console.WriteLine();
                         Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
                         Console.WriteLine("Press ENTER To Enter!!");
 
                         Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
-                        Console.BackgroundColor = ConsoleColor.Red;
-                        Console.ForegroundColor = ConsoleColor.White;
+
                         Value();
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.Red;
 
                         i++;
                         System.Threading.Thread.Sleep(10);
