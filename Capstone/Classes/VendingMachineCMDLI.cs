@@ -24,8 +24,6 @@ namespace Capstone.Classes
             Console.SetWindowSize(Console.LargestWindowWidth, 41);
             Console.SetBufferSize(Console.LargestWindowWidth * 2, 100);
             Console.SetWindowPosition(0, 0);
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"Sounds\Circus.wav");
-            player.Play();
             WelcomeMenu();
 
             while (true)
@@ -44,6 +42,8 @@ namespace Capstone.Classes
 
         private static void WelcomeMenu()
         {
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"Sounds\Circus.wav");
+            player.PlayLooping();
             string[] welcomeScroll =
             {
                 "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
@@ -144,7 +144,7 @@ namespace Capstone.Classes
                         x = 1;
                     }
                 }
-            
+            player.Stop();
             TopMenu();
         }
 
