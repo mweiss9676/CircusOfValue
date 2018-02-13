@@ -13,7 +13,7 @@ namespace Capstone.Classes
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
-        static ConsoleColor primaryColor = ConsoleColor.Red;
+        static ConsoleColor primaryColor = ConsoleColor.DarkYellow;
         static ConsoleColor secondaryColor = ConsoleColor.Yellow;
 
         static void Main(string[] args)
@@ -332,6 +332,8 @@ namespace Capstone.Classes
             while (true)
             {
                 CircusOfSmall();
+                Console.WriteLine();
+
                 List<string> concatMenu = new List<string>();
                 int sizeOfCart = machine.ShoppingCart.Count;
 
@@ -398,19 +400,23 @@ namespace Capstone.Classes
                     }
                 }
                 
+
+                //the formatting is off here, remove selection and done shopping are not printing
                 machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                 string totalCart = machine.TotalCart.ToString();
                 string currentMoney = machine.CurrentMoneyProvided.ToString();
                 concatMenu.Add("---------------------------------".PadLeft(41));
                 concatMenu.Add("Total: | $".PadLeft(37) + totalCart);
                 concatMenu.Add("Current Money Provided: | $".PadLeft(37) + currentMoney.PadRight(8));
-
                 PrintConcatenatedMenu(concatMenu);
-                Console.WriteLine("(D)one shopping?".PadLeft(25));
-                Console.WriteLine();
-                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)".PadLeft(54));
 
-                ValueSmall();
+                //PrintMenusSingleSpaced(new string[] { "(D)one shopping?", "Remove selection? (ex. Remove Potato Crisps)" });
+               Console.WriteLine("(D)one shopping?".PadLeft(25));
+               Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)".PadLeft(54));
+               Console.WriteLine();
+
+                ValueSmallPushedDownByLongList();
+
                 string ItemSelection = Console.ReadLine().ToUpper();
                 Regex reg = new Regex($"^(?:REMOVE)\\s((?:\\w+)\\s?(?:\\w+)?)");
                 Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
@@ -795,6 +801,23 @@ namespace Capstone.Classes
         private static void ValueSmall()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$                         $$             $$   $$$$          $$            $$             $$   $$$$$$$$$$$$$$$$$    $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                          $$          $$     $$  $$        $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                            $$       $$      $$$$$$$       $$            $$             $$   $$$$$$$$$$$$$$       $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                             $$    $$        $$    $$      $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                              $$  $$         $$     $$     $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                               $$$$          $$       $$   $$             $$           $$    $$                                                                         $$");
+            Console.WriteLine("$$                                $$           $$        $$  $$$$$$$$$$$$     $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
+        }
+
+        private static void ValueSmallPushedDownByLongList()
+        {
             Console.BackgroundColor = primaryColor;
             Console.ForegroundColor = secondaryColor;
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
