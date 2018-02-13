@@ -24,6 +24,9 @@ namespace Capstone.Classes
             Console.SetWindowSize(Console.LargestWindowWidth, 41);
             Console.SetBufferSize(Console.LargestWindowWidth * 2, 100);
             Console.SetWindowPosition(0, 0);
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"Sounds\Circus.wav");
+            player.Play();
+            WelcomeMenu();
 
             while (true)
             {
@@ -37,6 +40,112 @@ namespace Capstone.Classes
                     Console.WriteLine(e);
                 }
             }
+        }
+
+        private static void WelcomeMenu()
+        {
+            string[] welcomeScroll =
+            {
+                "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
+                "                $$                       $$  $$$$$$$$$$$$$$$$$  $$                 $$$$$$$$$$$$         $$$$$$$$$$$$     $$$          $$  $$$$$$$$$$$$$$$$$            $$$$$$$$$$$$$$$$$$     $$$$$$$$$$$$               $$$$$$$$$$$$$$$$$$  $$            $$  $$$$$$$$$$$$$$$$$               $$$$$$$$$$$$     $$$$$$$$$$$$$$$$$$   $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$      $$$$$$$$$$                $$$$$$$$$$$$     $$$$$$$$$$$$$$$$          $$                $$   $$$$             $$                 $$             $$   $$$$$$$$$$$$$$$$$    $$$$  $$$$  $$$$   ",
+                "                 $$                     $$   $$                 $$               $$            $$     $$            $$   $$$$       $$$$  $$                                   $$           $$            $$                     $$          $$            $$  $$                            $$            $$           $$           $$          $$     $$            $$   $$             $$    $$          $$            $$            $$   $$                         $$              $$   $$   $$           $$                 $$             $$   $$                   $$$$  $$$$  $$$$   ",
+                "                  $$                   $$    $$                 $$              $$              $$   $$              $$  $$$$$     $$$$$  $$                                   $$          $$              $$                    $$          $$            $$  $$                           $$              $$          $$           $$           $$   $$              $$  $$             $$   $$                        $$              $$  $$                          $$            $$    $$    $$          $$                 $$             $$   $$                   $$$$  $$$$  $$$$   ",
+                "                   $$                 $$     $$                 $$              $$                   $$              $$  $$   $$$$    $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                           $$                          $$           $$           $$   $$                  $$             $$    $$                       $$              $$  $$                           $$          $$     $$     $$         $$                 $$             $$   $$                    $$    $$    $$    ",
+                "                    $$               $$      $$                 $$              $$                   $$              $$  $$   $$$$    $$  $$                                   $$          $$              $$                    $$          $$$$$$$$$$$$$$$$  $$                           $$                          $$           $$          $$    $$                  $$             $$      $$$$$$$$$$             $$              $$  $$$$$$$$$$$$$$                $$        $$      $$      $$        $$                 $$             $$   $$                    $$    $$    $$    ",
+                "                     $$      $      $$       $$$$$$$$$$$$$$$$   $$              $$                   $$              $$  $$    $$     $$  $$$$$$$$$$$$$$$$                     $$          $$              $$                    $$          $$            $$  $$$$$$$$$$$$$$$$             $$                          $$           $$$$$$$$$$$$      $$                  $$             $$               $$$           $$              $$  $$                             $$      $$       $$       $$       $$                 $$             $$   $$$$$$$$$$$$$$$$      $$    $$    $$    ",
+                "                      $$    $$$    $$        $$                 $$              $$                   $$              $$  $$    $$     $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                           $$                          $$           $$         $$     $$                  $$             $$                 $$          $$              $$  $$                              $$    $$        $$$$$$$$$$$$$     $$                 $$             $$   $$                    $$    $$    $$    ",
+                "                       $$  $$ $$  $$         $$                 $$              $$              $$   $$              $$  $$    $$     $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                           $$              $$          $$           $$          $$    $$              $$  $$             $$   $             $$          $$              $$  $$                               $$  $$         $$          $$    $$                 $$             $$   $$                    $$    $$    $$    ",
+                "                        $$$$   $$$$          $$                 $$               $$            $$     $$            $$   $$           $$  $$                                   $$           $$            $$                     $$          $$            $$  $$                            $$            $$           $$           $$           $$    $$            $$    $$           $$     $$          $$            $$            $$   $$                                $$$$          $$           $$   $$                  $$           $$    $$                                      ",
+                "                         $$     $$           $$$$$$$$$$$$$$$$$  $$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$    $$$          $$$  $$$$$$$$$$$$$$$$$                    $$             $$$$$$$$$$$$                       $$          $$            $$  $$$$$$$$$$$$$$$$$               $$$$$$$$$$$$      $$$$$$$$$$$$$$$$$$  $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$         $$$$$$$$$$                $$$$$$$$$$$$     $$                                 $$           $$            $$  $$$$$$$$$$$$$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$    $$    $$    ",
+                "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+            };
+
+
+            int i = 0;
+            int substringLength = 200;
+            int x = 1;
+
+            while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter))
+            {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.White;
+                    CircusOf();
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(0, Console.WindowHeight / 3);
+
+                    if (i + substringLength < welcomeScroll[0].Length)
+                    {
+                        Console.SetCursorPosition(0, Console.WindowHeight / 3);
+                        Console.WriteLine(welcomeScroll[0].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[1].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[2].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[3].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[4].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[5].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[6].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[7].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[8].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[9].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[10].Substring(i, substringLength));
+                        Console.WriteLine(welcomeScroll[11].Substring(i, substringLength));
+
+                        Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
+                        Console.WriteLine("Press ENTER To Enter!!");
+
+                        Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Value();
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                        i++;
+                        System.Threading.Thread.Sleep(10);
+
+                        Console.Clear();
+                    }
+                    else if (substringLength - x > 0)
+                    {
+                        Console.SetCursorPosition(0, Console.WindowHeight / 3);
+
+                        Console.WriteLine(welcomeScroll[0].Substring(i, substringLength - x) + welcomeScroll[0].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[1].Substring(i, substringLength - x) + welcomeScroll[1].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[2].Substring(i, substringLength - x) + welcomeScroll[2].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[3].Substring(i, substringLength - x) + welcomeScroll[3].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[4].Substring(i, substringLength - x) + welcomeScroll[4].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[5].Substring(i, substringLength - x) + welcomeScroll[5].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[6].Substring(i, substringLength - x) + welcomeScroll[6].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[7].Substring(i, substringLength - x) + welcomeScroll[7].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[8].Substring(i, substringLength - x) + welcomeScroll[8].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[9].Substring(i, substringLength - x) + welcomeScroll[9].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[10].Substring(i, substringLength - x) + welcomeScroll[10].Substring(0, x));
+                        Console.WriteLine(welcomeScroll[11].Substring(i, substringLength - x) + welcomeScroll[11].Substring(0, x));
+
+                        Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
+                        Console.WriteLine("Press ENTER To Enter!!");
+                      
+                        Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Value();
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Red;
+
+                        System.Threading.Thread.Sleep(10);
+                        Console.Clear();
+
+                        x++;
+                        i++;
+                    }
+                    else
+                    {
+                        i = 0;
+                        x = 1;
+                    }
+                }
+            
+            TopMenu();
         }
 
         private static void TopMenu()
@@ -553,20 +662,63 @@ namespace Capstone.Classes
            
         }
 
+        private static void CircusOfSmall()
+        {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$     $$$$$$$$$$$$                 $$$$$$$$$$$     $$$$$$$$$$$$     $$");
+            Console.WriteLine("$$     $$            $$           $$           $$          $$     $$            $    $$             $$    $$                          $$           $$   $$               $$");
+            Console.WriteLine("$$    $$                          $$           $$$$$$$$$$$$      $$                  $$             $$     $$$$$$$$$$$               $$             $$  $$$$$$$$         $$");
+            Console.WriteLine("$$    $$                          $$           $$          $$    $$                  $$             $$                $$             $$             $$  $$               $$");
+            Console.WriteLine("$$     $$            $$           $$           $$           $$    $$            $     $$           $$     $           $$              $$           $$   $$               $$");
+            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$        $$$$$$$$$$$$                 $$$$$$$$$$$     $$               $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        }
+
+        private static void Welcome()
+        {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$       $$                       $$  $$$$$$$$$$$$$$$$$  $$                     $$$$$$$$$$$$         $$$$$$$$$$$$     $$$          $$  $$$$$$$$$$$$$$$$$            $$$$$$$$$$$$$$$$$$     $$$$$$$$$$$$               $$$$$$$$$$$$$$$$$$  $$            $$  $$$$$$$$$$$$$$$$$   $$");
+            Console.WriteLine("$$        $$                     $$   $$                 $$                   $$            $$     $$            $$   $$$$       $$$$  $$                                   $$           $$            $$                     $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$         $$                   $$    $$                 $$                  $$              $$   $$              $$  $$$$$     $$$$$  $$                                   $$          $$              $$                    $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$          $$                 $$     $$                 $$                  $$                   $$              $$  $$   $$$$    $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$           $$               $$      $$                 $$                  $$                   $$              $$  $$   $$$$    $$  $$                                   $$          $$              $$                    $$          $$$$$$$$$$$$$$$$  $$                  $$");
+            Console.WriteLine("$$            $$      $      $$       $$$$$$$$$$$$$$$$   $$                  $$                   $$              $$  $$    $$     $$  $$$$$$$$$$$$$$$$                     $$          $$              $$                    $$          $$            $$  $$$$$$$$$$$$$$$$    $$");
+            Console.WriteLine("$$             $$    $$$    $$        $$                 $$                  $$                   $$              $$  $$    $$     $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$              $$  $$ $$  $$         $$                 $$                  $$              $$   $$              $$  $$    $$     $$  $$                                   $$          $$              $$                    $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$               $$$$   $$$$          $$                 $$                   $$            $$     $$            $$   $$           $$  $$                                   $$           $$            $$                     $$          $$            $$  $$                  $$");
+            Console.WriteLine("$$                $$     $$           $$$$$$$$$$$$$$$$$  $$$$$$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$    $$$          $$$  $$$$$$$$$$$$$$$$$                    $$             $$$$$$$$$$$$                       $$          $$            $$  $$$$$$$$$$$$$$$$$   $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+
+            
+        }
+
         private static void Value()
         {
-            Console.WriteLine();
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$                    $$                $$   $$$$             $$                 $$             $$   $$$$$$$$$$$$$$$$$    $$$$  $$$$  $$$$                               $$");
             Console.WriteLine("$$                     $$              $$   $$   $$           $$                 $$             $$   $$                   $$$$  $$$$  $$$$                               $$");
             Console.WriteLine("$$                      $$            $$    $$    $$          $$                 $$             $$   $$                   $$$$  $$$$  $$$$                               $$");
             Console.WriteLine("$$                       $$          $$     $$     $$         $$                 $$             $$   $$                    $$    $$    $$                                $$");
-            Console.WriteLine("$$                        $$        $$      $$      $$        $$                 $$             $$   $$$$$$$$$$$$$$$$$     $$    $$    $$                                $$");
-            Console.WriteLine("$$                         $$      $$       $$$$$$$$$$$       $$                 $$             $$   $$                    $$    $$    $$                                $$");
-            Console.WriteLine("$$                          $$    $$        $$         $$     $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                        $$        $$      $$      $$        $$                 $$             $$   $$                    $$    $$    $$                                $$");
+            Console.WriteLine("$$                         $$      $$       $$       $$       $$                 $$             $$   $$$$$$$$$$$$$$$$      $$    $$    $$                                $$");
+            Console.WriteLine("$$                          $$    $$        $$$$$$$$$$$$$     $$                 $$             $$   $$                    $$    $$    $$                                $$");
             Console.WriteLine("$$                           $$  $$         $$          $$    $$                 $$             $$   $$                    $$    $$    $$                                $$");
             Console.WriteLine("$$                            $$$$          $$           $$   $$                  $$           $$    $$                                                                  $$");
             Console.WriteLine("$$                             $$           $$            $$  $$$$$$$$$$$$$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$    $$    $$                                $$");
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        }
+
+        private static void ValueSmall()
+        {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            Console.WriteLine("$$                         $$             $$   $$$$          $$            $$             $$   $$$$$$$$$$$$$$$$$    $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                          $$          $$     $$  $$        $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                            $$       $$      $$$$$$$       $$            $$             $$   $$$$$$$$$$$$$$       $$$$   $$$$   $$$$   $$$$                             $$");
+            Console.WriteLine("$$                             $$    $$        $$    $$      $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                              $$  $$         $$     $$     $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
+            Console.WriteLine("$$                               $$$$          $$       $$   $$             $$           $$    $$                                                                         $$");
+            Console.WriteLine("$$                                $$           $$        $$  $$$$$$$$$$$$     $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$     $$     $$     $$                              $$");
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         }
 
@@ -612,29 +764,5 @@ namespace Capstone.Classes
             }
         }
 
-        private static void CircusOfSmall()
-        {
-            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$     $$$$$$$$$$$$                 $$$$$$$$$$$     $$$$$$$$$$$$     $$");
-            Console.WriteLine("$$     $$            $$           $$           $$          $$     $$            $    $$             $$    $$                          $$           $$   $$               $$");
-            Console.WriteLine("$$    $$                          $$           $$$$$$$$$$$$      $$                  $$             $$     $$$$$$$$$$$               $$             $$  $$$$$$$$         $$");
-            Console.WriteLine("$$    $$                          $$           $$          $$    $$                  $$             $$                $$             $$             $$  $$               $$");
-            Console.WriteLine("$$     $$            $$           $$           $$           $$    $$            $     $$           $$     $           $$              $$           $$   $$               $$");
-            Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$        $$$$$$$$$$$$                 $$$$$$$$$$$     $$               $$");
-            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        }
-
-        private static void ValueSmall()
-        {
-            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.WriteLine("$$                         $$             $$   $$$$          $$            $$             $$   $$$$$$$$$$$$$$$$$    $$$$   $$$$   $$$$   $$$$                             $$");
-            Console.WriteLine("$$                          $$          $$     $$  $$        $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
-            Console.WriteLine("$$                            $$       $$      $$   $$       $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
-            Console.WriteLine("$$                             $$    $$        $$$$$$$$      $$            $$             $$   $$$$$$$$$$$$          $$     $$     $$     $$                              $$");
-            Console.WriteLine("$$                              $$  $$         $$      $$    $$            $$             $$   $$                    $$     $$     $$     $$                              $$");
-            Console.WriteLine("$$                               $$$$          $$       $$   $$             $$           $$    $$                                                                         $$");
-            Console.WriteLine("$$                                $$           $$        $$  $$$$$$$$$$$$     $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$     $$     $$     $$                              $$");
-            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        }
     }
 }
