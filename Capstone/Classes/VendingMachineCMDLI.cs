@@ -13,11 +13,13 @@ namespace Capstone.Classes
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
+        static ConsoleColor primaryColor = ConsoleColor.Red;
+        static ConsoleColor secondaryColor = ConsoleColor.White;
 
         static void Main(string[] args)
         {
-            ConsoleColor primaryColor = ConsoleColor.Red;
-            ConsoleColor secondaryColor = ConsoleColor.White;
+            //ConsoleColor primaryColor = ConsoleColor.Red;
+            //ConsoleColor secondaryColor = ConsoleColor.White;
             Console.BackgroundColor = secondaryColor;
             Console.ForegroundColor = primaryColor;
             Console.Clear();
@@ -325,7 +327,6 @@ namespace Capstone.Classes
         {
             while (true)
             {
-                //Console.Clear();
                 CircusOfSmall();
                 List<string> concatMenu = new List<string>();
                 int sizeOfCart = machine.ShoppingCart.Count;
@@ -637,8 +638,8 @@ namespace Capstone.Classes
 
         private static void CircusOf()
         {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$     $$$$$$$$$$$$     $$$$$$$$$$$$$$$$$$   $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$      $$$$$$$$$$                $$$$$$$$$$$$     $$$$$$$$$$$$$$$$    $$");
             Console.WriteLine("$$   $$            $$           $$           $$          $$     $$            $$   $$             $$    $$          $$            $$            $$   $$                  $$");
@@ -651,14 +652,14 @@ namespace Capstone.Classes
             Console.WriteLine("$$   $$            $$           $$           $$           $$    $$            $$    $$           $$     $$          $$            $$            $$   $$                  $$");
             Console.WriteLine("$$     $$$$$$$$$$$$      $$$$$$$$$$$$$$$$$$  $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$         $$$$$$$$$$                $$$$$$$$$$$$     $$                  $$");
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
         }
 
         private static void CircusOfSmall()
         {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$$$$$$$$$$$         $$$$$$$$$$$$     $$             $$     $$$$$$$$$$$$                 $$$$$$$$$$$     $$$$$$$$$$$$     $$");
             Console.WriteLine("$$     $$            $$           $$           $$          $$     $$            $    $$             $$    $$                          $$           $$   $$               $$");
@@ -667,11 +668,11 @@ namespace Capstone.Classes
             Console.WriteLine("$$     $$            $$           $$           $$           $$    $$            $     $$           $$     $           $$              $$           $$   $$               $$");
             Console.WriteLine("$$       $$$$$$$$$$$$       $$$$$$$$$$$$$$     $$            $$     $$$$$$$$$$$$        $$$$$$$$$$$        $$$$$$$$$$$$                 $$$$$$$$$$$     $$               $$");
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
         }
 
-        private static void Welcome()
+        private static void LetterStorage()
         {
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$       $$                       $$  $$$$$$$$$$$$$$$$$  $$                     $$$$$$$$$$$$         $$$$$$$$$$$$     $$$          $$  $$$$$$$$$$$$$$$$$            $$$$$$$$$$$$$$$$$$     $$$$$$$$$$$$               $$$$$$$$$$$$$$$$$$  $$            $$  $$$$$$$$$$$$$$$$$   $$");
@@ -693,8 +694,8 @@ namespace Capstone.Classes
         private static void Value()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$                    $$                $$   $$$$             $$                 $$             $$   $$$$$$$$$$$$$$$$$    $$$$  $$$$  $$$$                               $$");
             Console.WriteLine("$$                     $$              $$   $$   $$           $$                 $$             $$   $$                   $$$$  $$$$  $$$$                               $$");
@@ -707,15 +708,15 @@ namespace Capstone.Classes
             Console.WriteLine("$$                            $$$$          $$           $$   $$                  $$           $$    $$                                                                  $$");
             Console.WriteLine("$$                             $$           $$            $$  $$$$$$$$$$$$$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$    $$    $$                                $$");
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
         }
 
         private static void ValueSmall()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = primaryColor;
+            Console.ForegroundColor = secondaryColor;
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             Console.WriteLine("$$                         $$             $$   $$$$          $$            $$             $$   $$$$$$$$$$$$$$$$$    $$$$   $$$$   $$$$   $$$$                             $$");
             Console.WriteLine("$$                          $$          $$     $$  $$        $$            $$             $$   $$                   $$$$   $$$$   $$$$   $$$$                             $$");
@@ -725,8 +726,8 @@ namespace Capstone.Classes
             Console.WriteLine("$$                               $$$$          $$       $$   $$             $$           $$    $$                                                                         $$");
             Console.WriteLine("$$                                $$           $$        $$  $$$$$$$$$$$$     $$$$$$$$$$$      $$$$$$$$$$$$$$$$$     $$     $$     $$     $$                              $$");
             Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = secondaryColor;
+            Console.ForegroundColor = primaryColor;
         }
 
         private static void PrintMenus(string[] menu)
