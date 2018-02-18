@@ -11,6 +11,11 @@ namespace Capstone.Classes
 {
     public class VendingMachineFileReader
     {
+        private const int Default_Quantity = 5;
+        private const int Col_SlotId = 0;
+        private const int Col_Name = 1;
+        private const int Col_Cost = 2;
+
         public Dictionary<string, List<VendingMachineItem>> GetInventory()
         {
             Regex startsWithA = new Regex(@"^A");
@@ -28,12 +33,12 @@ namespace Capstone.Classes
                     {
                         string[] eachLineArray = sr.ReadLine().Split('|');
 
-                        string slotID = eachLineArray[0];
-                        string nameOfItem = eachLineArray[1];
-                        string priceOfItem = eachLineArray[2];
+                        string slotID = eachLineArray[Col_SlotId];
+                        string nameOfItem = eachLineArray[Col_Name];
+                        string priceOfItem = eachLineArray[Col_Cost];
 
                         List<VendingMachineItem> vendingMachineItems = new List<VendingMachineItem>();
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < Default_Quantity; i++)
                         {
                             if (startsWithA.IsMatch(slotID))
                             {
@@ -63,7 +68,6 @@ namespace Capstone.Classes
             }
 
             return inventory;
-
         }
     }
 }

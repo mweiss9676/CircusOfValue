@@ -22,7 +22,13 @@ namespace Capstone
 
         public List<string> NamesOfItems = new List<string>();
 
-        public decimal TotalCart { get; private set; }
+        public decimal TotalCart
+        {
+            get
+            {
+                return ShoppingCart.Sum(item => item.PriceOfItem);
+            }
+        }
 
         public Dictionary<string, List<VendingMachineItem>> Inventory { get; private set; }
 
@@ -46,15 +52,15 @@ namespace Capstone
             CurrentMoneyProvided += moneyInserted;
         }
 
-        public void PayForItem(VendingMachineItem item)
-        {
-            CurrentMoneyProvided -= item.PriceOfItem;
-        }
+        //public void PayForItem(VendingMachineItem item)
+        //{
+        //    CurrentMoneyProvided -= item.PriceOfItem;
+        //}
 
-        public void ResetCurrentMoneyProvided()
-        {
-            CurrentMoneyProvided = 0;
-        }
+        //public void ResetCurrentMoneyProvided()
+        //{
+        //    CurrentMoneyProvided = 0;
+        //}
 
         public void RemoveItemFromInventory(VendingMachineItem item)
         {
@@ -66,34 +72,23 @@ namespace Capstone
             Inventory[item.SlotID].Add(item);
         }
 
-        public void CalculateTotalShoppingCart(List<VendingMachineItem> cart)
-        {
-            decimal total = 0.0M;
-
-            foreach (VendingMachineItem item in cart)
-            {
-                total += item.PriceOfItem;
-            }
-
-            TotalCart = total;
-        }
 
         public void AddItemToCart(VendingMachineItem item)
         {
             ShoppingCart.Add(item);
         }
 
-        public int RemoveItemsFromCart(VendingMachineItem item)
+        public bool RemoveItemsFromCart(VendingMachineItem item)
         {
             foreach (var i in ShoppingCart)
             {
                 if (i.NameOfItem == item.NameOfItem)
                 {
                     ShoppingCart.Remove(i);
-                    return 1;
+                    return true;
                 }
             }
-            return -1;
+            return false;
         }
 
         public Change GetChange()
