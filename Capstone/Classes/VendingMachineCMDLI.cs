@@ -562,6 +562,27 @@ namespace Capstone.Classes
                 }
             }
 
+
+
+            while (machine.ShoppingCart.Count > 0)
+            {
+                string name = machine.ShoppingCart[0].NameOfItem;
+                string slot = machine.ShoppingCart[0].SlotID;
+                string cmp = "$" + machine.CurrentMoneyProvided.ToString();
+                string total = "$" + (machine.CurrentMoneyProvided - machine.ShoppingCart[0].PriceOfItem).ToString();
+
+                machine.PrintLog(name.PadRight(20) + slot.PadRight(3) + cmp.PadRight(8) + total);
+                machine.PayForItem(machine.ShoppingCart[0]);
+                machine.RemoveItemsFromCart(machine.ShoppingCart[0]);
+            }
+
+            machine.ResetCurrentMoneyProvided();
+
+            machine.PrintLog($"GIVE CHANGE:".PadRight(23) + $"${change.TotalChange}   ${machine.CurrentMoneyProvided:0.00}");
+
+            Console.WriteLine();
+            Console.Clear();
+            
             DisplayHeader();
             Console.WriteLine();
             PrintMenusSingleSpaced(tempListOfYumYumStatements.ToArray());

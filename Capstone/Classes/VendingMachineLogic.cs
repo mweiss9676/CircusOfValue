@@ -52,15 +52,21 @@ namespace Capstone
             CurrentMoneyProvided += moneyInserted;
         }
 
-        //public void PayForItem(VendingMachineItem item)
-        //{
-        //    CurrentMoneyProvided -= item.PriceOfItem;
-        //}
 
-        //public void ResetCurrentMoneyProvided()
-        //{
-        //    CurrentMoneyProvided = 0;
-        //}
+
+
+        public void PayForItem(VendingMachineItem item)
+        {
+            CurrentMoneyProvided -= item.PriceOfItem;
+        }
+
+        public void ResetCurrentMoneyProvided()
+        {
+            CurrentMoneyProvided = 0;
+        }
+
+
+
 
         public void RemoveItemFromInventory(VendingMachineItem item)
         {
