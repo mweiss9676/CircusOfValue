@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,13 +14,11 @@ namespace Capstone.Classes
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
-        static ConsoleColor primaryColor = ConsoleColor.DarkYellow;
+        static ConsoleColor primaryColor = ConsoleColor.Red;
         static ConsoleColor secondaryColor = ConsoleColor.Yellow;
 
         static void Main(string[] args)
         {
-            //ConsoleColor primaryColor = ConsoleColor.Red;
-            //ConsoleColor secondaryColor = ConsoleColor.White;
             Console.BackgroundColor = secondaryColor;
             Console.ForegroundColor = primaryColor;
             Console.Clear();
@@ -143,6 +142,7 @@ namespace Capstone.Classes
             CircusOf();
 
             string[] menu = { "(1) Display Items", "(2) Purchase Items", "(3) Close Vending Machine", "(4) Sounds Off" };
+            
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -877,6 +877,20 @@ namespace Capstone.Classes
                 Console.SetCursorPosition((Console.CursorLeft), Console.CursorTop);
                 Console.WriteLine(s);
             }
+        }
+
+        private async Task MenuTimer()
+        {
+            Stopwatch watch = new Stopwatch();
+
+            watch.Start();
+
+            if(watch.ElapsedMilliseconds == 6_000)
+            {
+                WelcomeMenu();
+                return;
+            }
+            
         }
 
     }
