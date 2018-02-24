@@ -33,7 +33,6 @@ namespace Capstone.Classes
                 {
                     TopMenu();
                 }
-                //Add more specific exception later
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
@@ -539,7 +538,7 @@ namespace Capstone.Classes
             }
             Console.ReadLine();
 
-            List<string> temp = new List<string>();
+            List<string> tempListOfYumYumStatements = new List<string>();
 
             Console.Clear();
 
@@ -547,32 +546,32 @@ namespace Capstone.Classes
             {
                 if (item.SlotID.Contains("A"))
                 {
-                    temp.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
+                    tempListOfYumYumStatements.Add($"You are crunching on {item.NameOfItem} {item.ItemYumYum()}");
                 }
                 else if (item.SlotID.Contains("B"))
                 {
-                    temp.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
+                    tempListOfYumYumStatements.Add($"You are munching on {item.NameOfItem} {item.ItemYumYum()}");
                 }
                 else if (item.SlotID.Contains("C"))
                 {
-                    temp.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
+                    tempListOfYumYumStatements.Add($"You are drinking {item.NameOfItem} {item.ItemYumYum()}");
                 }
                 else
                 {
-                    temp.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
+                    tempListOfYumYumStatements.Add($"You are chewing on {item.NameOfItem} {item.ItemYumYum()}");
                 }
             }
 
             DisplayHeader();
             Console.WriteLine();
-            PrintMenusSingleSpaced(temp.ToArray());
+            PrintMenusSingleSpaced(tempListOfYumYumStatements.ToArray());
 
-            if (temp.Count == 0)
+            if (tempListOfYumYumStatements.Count == 0)
             {
                 Console.Clear();
                 AfterTransactionMenu();
             }
-            else if (temp.Count > 0 && temp.Count < 15)
+            else if (tempListOfYumYumStatements.Count > 0 && tempListOfYumYumStatements.Count < 15)
             {
                 DisplayValue();
             }
