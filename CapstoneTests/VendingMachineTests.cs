@@ -35,7 +35,7 @@ namespace CapstoneTests
             test.AddItemToCart(chips);
             test.AddItemToCart(gum);
             test.AddItemToCart(drink);
-            test.CalculateTotalShoppingCart(test.ShoppingCart);
+            //test.CalculateTotalShoppingCart(test.ShoppingCart);
 
             Assert.AreEqual(7.60M, test.TotalCart);
         }
@@ -46,12 +46,12 @@ namespace CapstoneTests
             test.AddItemToCart(chips);
             test.AddItemToCart(drink);
             test.AddItemToCart(gum);
-            test.CalculateTotalShoppingCart(test.ShoppingCart);
+            //test.CalculateTotalShoppingCart(test.ShoppingCart);
 
             Assert.AreEqual(7.60M, test.TotalCart);
 
             test.RemoveItemsFromCart(chips);
-            test.CalculateTotalShoppingCart(test.ShoppingCart);
+            //test.CalculateTotalShoppingCart(test.ShoppingCart);
 
             Assert.AreEqual(5.20M, test.TotalCart);
 
@@ -82,14 +82,6 @@ namespace CapstoneTests
             Assert.AreEqual(79, countAfter);
         }
 
-        [TestMethod]
-        public void CoinSound()
-        {
-            test.AddMoney(2.0M);
-
-            Change change = test.GetChange();
-
-            change.ChangeSound();
-        }
+       
     }
 }

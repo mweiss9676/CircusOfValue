@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Capstone;
-
+using Capstone.Sounds;
 
 namespace Capstone.Classes
 {
@@ -68,7 +68,7 @@ namespace Capstone.Classes
 
             while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter))
             {
-                    CircusOf();
+                    DisplayHeader();
 ;
                     Console.SetCursorPosition(0, Console.WindowHeight / 3);
 
@@ -93,7 +93,7 @@ namespace Capstone.Classes
 
                         Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
 
-                        Value();
+                        DisplayValue();
 
                         i++;
                         System.Threading.Thread.Sleep(10);
@@ -119,7 +119,7 @@ namespace Capstone.Classes
                         Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
                         Console.WriteLine("Press ENTER To Enter!!");
 
-                        Value();
+                        DisplayValue();
 
                         System.Threading.Thread.Sleep(10);
                         Console.Clear();
@@ -139,7 +139,7 @@ namespace Capstone.Classes
 
         private static void TopMenu()
         {
-            CircusOf();
+            DisplayHeader();
 
             string[] menu = { "(1) Display Items", "(2) Purchase Items", "(3) Close Vending Machine", "(4) Sounds Off" };
             
@@ -148,7 +148,7 @@ namespace Capstone.Classes
             Console.WriteLine();
             PrintMenus(menu);
 
-            Value();
+            DisplayValue();
 
             string mainMenuResult = Console.ReadLine();
 
@@ -173,10 +173,10 @@ namespace Capstone.Classes
             {
                 Console.Clear();
                 soundsOFF = true;
-                CircusOf();
+                DisplayHeader();
                 string[] soundsOff = { "Turning Sounds Off...", "Press Return To Return"};
                 PrintMenus(soundsOff);
-                Value();
+                DisplayValue();
                 Console.ReadLine();
                 Console.Clear();
 
@@ -184,10 +184,10 @@ namespace Capstone.Classes
             else if (mainMenuResult == "45")
             {
                 Console.Clear();
-                CircusOf();
+                DisplayHeader();
                 string[] joshMenu = { "ADMIN ONLY: ENTER PASSWORD:" };
                 PrintMenus(joshMenu);
-                Value();
+                DisplayValue();
                 string password = Console.ReadLine();
                 if (password == "No Joshes Allowed")
                 {
@@ -217,6 +217,7 @@ namespace Capstone.Classes
                 CircusOfSmall();
 
                 Console.WriteLine();
+                
                 foreach (var kvp in machine.Inventory)
                 {
                     Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
@@ -232,7 +233,7 @@ namespace Capstone.Classes
                 Console.WriteLine();
                 Console.SetCursorPosition((Console.WindowWidth - 20) / 2, Console.CursorTop);
                 Console.WriteLine("Press Return To Return");
-                Value();
+                DisplayValue();
                 Console.ReadLine();
                 Console.Clear();
                 TopMenu();
@@ -241,14 +242,14 @@ namespace Capstone.Classes
 
         private static void MainMenu()
         {
-            CircusOf();
+            DisplayHeader();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             string[] menu = { "(1) Insert Money", "(2) Select Product", "(3) Finish Transaction", "(4) Close Vending Machine", $"Current Money Provided: ${machine.CurrentMoneyProvided} " };
             PrintMenus(menu);
 
-            Value();
+            DisplayValue();
             string purchaseMenuResult = Console.ReadLine();
 
             if (purchaseMenuResult == "1" || purchaseMenuResult.ToUpper() == "INSERT" || purchaseMenuResult.ToUpper() == "I")
@@ -264,7 +265,7 @@ namespace Capstone.Classes
             else if (purchaseMenuResult == "3" || purchaseMenuResult.ToUpper() == "FINISH" || purchaseMenuResult.ToUpper() == "F")
             {
                 Console.Clear();
-                machine.CalculateTotalShoppingCart(machine.ShoppingCart);
+                //machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                 CompleteTransactionMenu();
             }
             else if (purchaseMenuResult == "4" || purchaseMenuResult.ToUpper() == "CLOSE" || purchaseMenuResult.ToUpper() == "C")
@@ -298,7 +299,7 @@ namespace Capstone.Classes
 
                     Console.WriteLine($"Current Total: ${machine.TotalCart}");
                 }
-                Value();
+                DisplayValue();
                 string answer = Console.ReadLine();
 
                 decimal moneyInserted;
@@ -402,7 +403,7 @@ namespace Capstone.Classes
                 
 
                 //the formatting is off here, remove selection and done shopping are not printing
-                machine.CalculateTotalShoppingCart(machine.ShoppingCart);
+                //machine.CalculateTotalShoppingCart(machine.ShoppingCart);
                 string totalCart = machine.TotalCart.ToString();
                 string currentMoney = machine.CurrentMoneyProvided.ToString();
                 concatMenu.Add("---------------------------------".PadLeft(41));
@@ -471,11 +472,11 @@ namespace Capstone.Classes
             string currentMoney = "Your Current Money Inserted is: " + machine.CurrentMoneyProvided.ToString();
 
             string[] menu = { totalCart, currentMoney, "Are You Ready To Complete The Transaction?", "(1) Yes", "(2) No", "(3) Sounds Off" };
-            CircusOf();
+            DisplayHeader();
             Console.WriteLine();
             Console.WriteLine();
             PrintMenus(menu);
-            Value();
+            DisplayValue();
 
             string completeTransaction = Console.ReadLine();
             
@@ -525,16 +526,16 @@ namespace Capstone.Classes
 
             string[] menu = { totalChange, "---------------------------------------" , quarters, dimes, nickels };
 
-            CircusOf();
+            DisplayHeader();
 
             Console.WriteLine();
             PrintMenus(menu);
 
-            Value();
+            DisplayValue();
 
             if (soundsOFF == false)
             {
-                change.ChangeSound();
+                AudioPlayer.ChangeSound();
             }
             Console.ReadLine();
 
@@ -562,7 +563,7 @@ namespace Capstone.Classes
                 }
             }
 
-            CircusOf();
+            DisplayHeader();
             Console.WriteLine();
             PrintMenusSingleSpaced(temp.ToArray());
 
@@ -573,7 +574,7 @@ namespace Capstone.Classes
             }
             else if (temp.Count > 0 && temp.Count < 15)
             {
-                Value();
+                DisplayValue();
             }
             else
             {
@@ -590,14 +591,14 @@ namespace Capstone.Classes
         {
             while (true)
             {
-                CircusOf();
+                DisplayHeader();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
                 string[] menu2 = { "(1) Return To Main Menu", "(2) Close Vending Machine" };
                 PrintMenus(menu2);
-                Value();
+                DisplayValue();
 
                 string menuChoice = Console.ReadLine();
 
@@ -702,7 +703,7 @@ namespace Capstone.Classes
             }
         }
 
-        private static void CircusOf()
+        private static void DisplayHeader()
         {
             Console.BackgroundColor = primaryColor;
             Console.ForegroundColor = secondaryColor;
@@ -757,7 +758,7 @@ namespace Capstone.Classes
             
         }
 
-        private static void Value()
+        private static void DisplayValue()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - Console.WindowHeight / 3);
             Console.BackgroundColor = primaryColor;
