@@ -334,9 +334,13 @@ namespace Capstone.Classes
                 CircusOfSmall();
                 Console.WriteLine();
 
+                //A menu made up of concatenated strings so that they can be displayed "side by side"
                 List<string> concatMenu = new List<string>();
                 int sizeOfCart = machine.ShoppingCart.Count;
 
+
+                //First thing the concatMenu is filled with is the name of each item and it's price (or sold out) 
+                //This is so everything else can be concatenated after it
                 foreach (var kvp in machine.Inventory)
                 {
                     if (machine.GetEachItemsCurrentInventory(kvp.Value) > 0)
@@ -348,6 +352,43 @@ namespace Capstone.Classes
                         concatMenu.Add("SOLD OUT".PadLeft(41));
                     }
                 }
+
+
+                //if (sizeOfCart > 0)
+                //{
+                //    string name = machine.ShoppingCart[0].NameOfItem;
+                //    string price = machine.ShoppingCart[0].PriceOfItem.ToString();
+
+                //    for (int i = 1; i <= sizeOfCart; i++)
+                //    {
+                //        string nameOfItem = machine.ShoppingCart[i].NameOfItem;
+                //        string priceOfItem = machine.ShoppingCart[i].PriceOfItem.ToString();
+
+                //        concatMenu[0] += "Your Current Cart: ".PadLeft(22) + name + ("$" + price).PadLeft(10 + (18 - name.Length));
+
+                //        if (sizeOfCart >= 2 && sizeOfCart <= 16)
+                //        {
+                //            concatMenu[i] += nameOfItem.PadLeft(22 + nameOfItem.Length) + ("$" + priceOfItem).PadLeft(10 + (18 - nameOfItem.Length));
+                //        }
+                //        if (sizeOfCart >= 17 && sizeOfCart <= 32)
+                //        {
+                //            concatMenu[i - 17] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
+                //        }
+                //        if (sizeOfCart >= 33 && sizeOfCart <= 48)
+                //        {
+                //            concatMenu[i - 33] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
+                //        }
+                //        if (sizeOfCart >= 49 && sizeOfCart <= 64)
+                //        {
+                //            concatMenu[i - 49] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
+                //        }
+                //        if (sizeOfCart >= 65 && sizeOfCart <= 80)
+                //        {
+                //            concatMenu[i - 65] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
+                //        }
+                //    }
+                //}
+
 
                 if (sizeOfCart > 0 && sizeOfCart < 17)
                 {
@@ -399,7 +440,7 @@ namespace Capstone.Classes
                         concatMenu[i - 65] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
                     }
                 }
-                
+
 
                 //the formatting is off here, remove selection and done shopping are not printing
                 //machine.CalculateTotalShoppingCart(machine.ShoppingCart);
@@ -408,9 +449,9 @@ namespace Capstone.Classes
                 concatMenu.Add("---------------------------------".PadLeft(41));
                 concatMenu.Add("Total: | $".PadLeft(37) + totalCart);
                 concatMenu.Add("Current Money Provided: | $".PadLeft(37) + currentMoney.PadRight(8));
+
                 PrintConcatenatedMenu(concatMenu);
 
-                //PrintMenusSingleSpaced(new string[] { "(D)one shopping?", "Remove selection? (ex. Remove Potato Crisps)" });
                Console.WriteLine("(D)one shopping?".PadLeft(25));
                Console.WriteLine("Remove selection? (ex. Remove Potato Crisps)".PadLeft(54));
                Console.WriteLine();
@@ -418,6 +459,9 @@ namespace Capstone.Classes
                 ValueSmallPushedDownByLongList();
 
                 string ItemSelection = Console.ReadLine().ToUpper();
+                //concatenated menu is printed now and then we wait on a user input to update the page
+
+
                 Regex reg = new Regex($"^(?:REMOVE)\\s((?:\\w+)\\s?(?:\\w+)?)");
                 Match match = Regex.Match(ItemSelection, $"(?<=REMOVE\\s)((\\w+)\\s?(\\w+)?)$");
 
