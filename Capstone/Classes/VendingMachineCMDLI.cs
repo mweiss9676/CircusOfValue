@@ -353,13 +353,13 @@ namespace Capstone.Classes
                 {
                     string name = machine.ShoppingCart[0].NameOfItem;
                     string price = machine.ShoppingCart[0].PriceOfItem.ToString();
-                    concatMenu[0] += "Your Current Cart: ".PadLeft(22) + name + ("$" + price).PadLeft(10);
+                    concatMenu[0] += "Your Current Cart: ".PadLeft(22) + name + ("$" + price).PadLeft(10 + (18 - name.Length));
 
                     for (int i = 1; i < sizeOfCart; i++)
                     {
                         string nameOfItem = machine.ShoppingCart[i].NameOfItem;
                         string priceOfItem = machine.ShoppingCart[i].PriceOfItem.ToString();
-                        concatMenu[i] += nameOfItem.PadLeft(35) + ("$" + priceOfItem).PadLeft(10);
+                        concatMenu[i] += nameOfItem.PadLeft(22 + nameOfItem.Length) + ("$" + priceOfItem).PadLeft(10 + (18 - nameOfItem.Length));
                     }
                 }
 
