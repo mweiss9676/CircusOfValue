@@ -14,7 +14,7 @@ namespace Capstone.Classes
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
-        static ConsoleColor primaryColor = ConsoleColor.Red;
+        static ConsoleColor primaryColor = ConsoleColor.Black;
         static ConsoleColor secondaryColor = ConsoleColor.Yellow;
 
         static void Main(string[] args)
@@ -352,7 +352,6 @@ namespace Capstone.Classes
                         concatMenu.Add("SOLD OUT".PadLeft(41));
                     }
                 }
-
 
                 //if (sizeOfCart > 0)
                 //{
