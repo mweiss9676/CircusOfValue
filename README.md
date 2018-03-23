@@ -1,1 +1,1 @@
-![Circus of Value](images/welcome.png)
+![Circus of Value](images/welcome2.png)
