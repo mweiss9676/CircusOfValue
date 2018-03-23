@@ -1,1 +1,1 @@
-![Circus of Value](~/images/circus4.png)
+![Circus of Value](images/welcome.png)
