@@ -14,8 +14,8 @@ namespace Capstone.Classes
     {
         static VendingMachineLogic machine = new VendingMachineLogic();
         static bool soundsOFF = false;
-        static ConsoleColor primaryColor = ConsoleColor.Black;
-        static ConsoleColor secondaryColor = ConsoleColor.Yellow;
+        static ConsoleColor primaryColor = ConsoleColor.White;
+        static ConsoleColor secondaryColor = ConsoleColor.Red;
 
         static void Main(string[] args)
         {
